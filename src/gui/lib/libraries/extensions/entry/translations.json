@@ -1,0 +1,22 @@
+{
+  "en": {
+    "snapshot.entry.name": "Snapshot",
+    "snapshot.entry.description": "Make the camera selectable. This is an extension to help with extensions that use all cameras."
+  },
+  "ja": {
+    "snapshot.entry.name": "スナップショット",
+    "snapshot.entry.description": "ステージのスナップショットを取得して画像をコスチュームとして保存する拡張です。"
+  },
+  "ja-Hira": {
+    "snapshot.entry.name": "すなっぷしょっと",
+    "snapshot.entry.description": "すくらっちのすてーじのすなっぷしょっとをしゅとくしてがぞうをこすちゅーむとしてほぞんするえくすてんしょんです。"
+  },
+  "zh-cn": {
+    "snapshot.entry.name": "快照",
+    "snapshot.entry.description": "这是一个扩展, 可以捕获Scratch舞台的快照, 并将它们作为服装保存。"
+  },
+  "zh-tw": {
+    "snapshot.entry.name": "快照",
+    "snapshot.entry.description": "這是一個擴展, 可以捕獲Scratch舞台的快照, 並將它們作為服裝保存。"
+  }
+}

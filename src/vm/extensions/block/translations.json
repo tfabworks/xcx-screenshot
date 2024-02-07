@@ -1,0 +1,17 @@
+{
+  "en": {
+    "snapshot.name": "Snapshot",
+    "snapshot.saveSnapshot": "Save the snapshot as [NAME]",
+    "snapshot.defaultName": "snapshot1"
+  },
+  "ja": {
+    "snapshot.name": "スナップショット",
+    "snapshot.saveSnapshot": "画面を[NAME]に保存",
+    "snapshot.defaultName": "スナップショット1"
+  },
+  "ja-Hira": {
+    "snapshot.name": "すなっぷしょっと",
+    "snapshot.saveSnapshot": "すなっぷしょっとを[NAME]というなまえでほぞんする",
+    "snapshot.defaultName": "すなっぷしょっと1"
+  }
+}
