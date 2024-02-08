@@ -30,14 +30,14 @@ const setupTranslations = () => {
 	}
 };
 
-const EXTENSION_ID = "snapshot";
+const EXTENSION_ID = "screenshot";
 
 /**
  * URL to get this extension as a module.
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-let extensionURL = "https://tfabworks.github.io/xcx-snapshot/dist/snapshot.mjs";
+let extensionURL = "https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs";
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
@@ -48,8 +48,8 @@ class ExtensionBlocks {
 	 */
 	static get EXTENSION_NAME() {
 		return formatMessage({
-			id: "snapshot.name",
-			default: translations.en["snapshot.name"],
+			id: "screenshot.name",
+			default: translations.en["screenshot.name"],
 			description: "name of the extension",
 		});
 	}
@@ -79,7 +79,7 @@ class ExtensionBlocks {
 	}
 
 	/**
-	 * Construct a set of blocks for Snapshot.
+	 * Construct a set of blocks for Screenshot.
 	 * @param {Runtime} runtime - the Scratch 3.0 runtime.
 	 */
 	constructor(runtime) {
@@ -97,7 +97,7 @@ class ExtensionBlocks {
 		/** @type {HTMLCanvasElement} */
 		this.canvas = document.querySelector("canvas");
 
-		window.snapshot = this; // DEBUG
+		window.screenshot = this; // DEBUG
 		window.loadCostume = loadCostume; // DEBUG
 	}
 
@@ -114,17 +114,17 @@ class ExtensionBlocks {
 			showStatusButton: false,
 			blocks: [
 				{
-					opcode: "saveSnapshot",
+					opcode: "saveScreenshot",
 					blockType: BlockType.COMMAND,
 					text: formatMessage({
-						id: "snapshot.saveSnapshot",
-						default: translations.en["snapshot.saveSnapshot"],
-						description: "Save ths snapshot",
+						id: "screenshot.saveScreenshot",
+						default: translations.en["screenshot.saveScreenshot"],
+						description: "Save ths screenshot",
 					}),
 					arguments: {
 						NAME: {
 							type: ArgumentType.STRING,
-							defaultValue: translations.en["snapshot.defaultName"],
+							defaultValue: translations.en["screenshot.defaultName"],
 						},
 					},
 				},
@@ -133,9 +133,9 @@ class ExtensionBlocks {
 		};
 	}
 
-	async saveSnapshot(args) {
+	async saveScreenshot(args) {
 		const spriteName = args.SPRITE_NAME || "Screenshot";
-		const costumeName = args.NAME || new Date().toLocaleString();
+		const costumeName = args.COSTUME_NAME || new Date().toLocaleString();
 		const canvas = document.querySelector("canvas");
 		const { width, height } = canvas;
 		const imageDataUrl = await canvasToDataURL(canvas);

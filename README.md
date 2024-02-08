@@ -1,4 +1,4 @@
-# Snapshot
+# Screenshot
 An example extension for [Xcratch](https://xcratch.github.io/)
 
 This extension add extra-block "do it", that executes string in its input field as a sentence in Javascript and return the result.
@@ -6,8 +6,8 @@ This extension add extra-block "do it", that executes string in its input field 
 
 ## ✨ What You Can Do With This Extension
 
-Play [Example Project](https://xcratch.github.io/editor/#https://tfabworks.github.io/xcx-snapshot/projects/example.sb3) to look at what you can do with "Snapshot" extension.
-<iframe src="https://xcratch.github.io/editor/player#https://tfabworks.github.io/xcx-snapshot/projects/example.sb3" width="540px" height="460px" allow="camera"></iframe>
+Play [Example Project](https://xcratch.github.io/editor/#https://tfabworks.github.io/xcx-screenshot/projects/example.sb3) to look at what you can do with "Screenshot" extension.
+<iframe src="https://xcratch.github.io/editor/player#https://tfabworks.github.io/xcx-screenshot/projects/example.sb3" width="540px" height="460px" allow="camera"></iframe>
 
 
 ## How to Use in Xcratch
@@ -18,7 +18,7 @@ This extension can be used with other extension in [Xcratch](https://xcratch.git
 3. Select 'Extension Loader' extension
 4. Type the module URL in the input field
 ```
-https://tfabworks.github.io/xcx-snapshot/dist/snapshot.mjs
+https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs
 ```
 
 ## Development
@@ -41,9 +41,9 @@ npm run build
 
 ## 🏠 Home Page
 
-Open this page from [https://tfabworks.github.io/xcx-snapshot/](https://tfabworks.github.io/xcx-snapshot/)
+Open this page from [https://tfabworks.github.io/xcx-screenshot/](https://tfabworks.github.io/xcx-screenshot/)
 
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/tfabworks/xcx-snapshot/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/tfabworks/xcx-screenshot/issues).

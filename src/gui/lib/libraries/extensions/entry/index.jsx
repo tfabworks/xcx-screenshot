@@ -17,28 +17,28 @@ let formatMessage = messageData => messageData.defaultMessage;
 const entry = {
     get name () {
         return formatMessage({
-            id: 'snapshot.entry.name',
-            default: translations.en['snapshot.entry.name'],
+            id: 'screenshot.entry.name',
+            default: translations.en['screenshot.entry.name'],
             description: 'name of the extension'
         });
     },
-    extensionId: 'snapshot',
-    extensionURL: 'https://tfabworks.github.io/xcx-snapshot/dist/snapshot.mjs',
+    extensionId: 'screenshot',
+    extensionURL: 'https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs',
     collaborator: 'tfabworks',
     iconURL: iconURL,
     insetIconURL: insetIconURL,
     get description () {
         return formatMessage({
-            defaultMessage: translations.en['snapshot.entry.description'],
+            defaultMessage: translations.en['screenshot.entry.description'],
             description: 'Description for this extension',
-            id: 'snapshot.entry.description'
+            id: 'screenshot.entry.description'
         });
     },
     featured: true,
     disabled: false,
     bluetoothRequired: false,
     internetConnectionRequired: false,
-    helpLink: 'https://tfabworks.github.io/xcx-snapshot/',
+    helpLink: 'https://tfabworks.github.io/xcx-screenshot/',
     setFormatMessage: formatter => {
         formatMessage = formatter;
     },

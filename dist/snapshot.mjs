@@ -3,27 +3,27 @@ var img$2 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAF0CAYAAAD/4EcMA
 var img$1 = "data:image/png;base64,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";
 
 var en$1 = {
-	"snapshot.entry.name": "Snapshot",
-	"snapshot.entry.description": "Make the camera selectable. This is an extension to help with extensions that use all cameras."
+	"screenshot.entry.name": "Screenshot",
+	"screenshot.entry.description": "Make the camera selectable. This is an extension to help with extensions that use all cameras."
 };
 var ja$1 = {
-	"snapshot.entry.name": "スナップショット",
-	"snapshot.entry.description": "ステージのスナップショットを取得して画像をコスチュームとして保存する拡張です。"
+	"screenshot.entry.name": "スナップショット",
+	"screenshot.entry.description": "ステージのスナップショットを取得して画像をコスチュームとして保存する拡張です。"
 };
 var translations$1 = {
 	en: en$1,
 	ja: ja$1,
 	"ja-Hira": {
-	"snapshot.entry.name": "すなっぷしょっと",
-	"snapshot.entry.description": "すくらっちのすてーじのすなっぷしょっとをしゅとくしてがぞうをこすちゅーむとしてほぞんするえくすてんしょんです。"
+	"screenshot.entry.name": "すなっぷしょっと",
+	"screenshot.entry.description": "すくらっちのすてーじのすなっぷしょっとをしゅとくしてがぞうをこすちゅーむとしてほぞんするえくすてんしょんです。"
 },
 	"zh-cn": {
-	"snapshot.entry.name": "快照",
-	"snapshot.entry.description": "这是一个扩展, 可以捕获Scratch舞台的快照, 并将它们作为服装保存。"
+	"screenshot.entry.name": "快照",
+	"screenshot.entry.description": "这是一个扩展, 可以捕获Scratch舞台的快照, 并将它们作为服装保存。"
 },
 	"zh-tw": {
-	"snapshot.entry.name": "快照",
-	"snapshot.entry.description": "這是一個擴展, 可以捕獲Scratch舞台的快照, 並將它們作為服裝保存。"
+	"screenshot.entry.name": "快照",
+	"screenshot.entry.description": "這是一個擴展, 可以捕獲Scratch舞台的快照, 並將它們作為服裝保存。"
 }
 };
 
@@ -43,28 +43,28 @@ var formatMessage$1 = function formatMessage(messageData) {
 var entry = {
   get name() {
     return formatMessage$1({
-      id: 'snapshot.entry.name',
-      default: translations$1.en['snapshot.entry.name'],
+      id: 'screenshot.entry.name',
+      default: translations$1.en['screenshot.entry.name'],
       description: 'name of the extension'
     });
   },
-  extensionId: 'snapshot',
-  extensionURL: 'https://tfabworks.github.io/xcx-snapshot/dist/snapshot.mjs',
+  extensionId: 'screenshot',
+  extensionURL: 'https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs',
   collaborator: 'tfabworks',
   iconURL: img$2,
   insetIconURL: img$1,
   get description() {
     return formatMessage$1({
-      defaultMessage: translations$1.en['snapshot.entry.description'],
+      defaultMessage: translations$1.en['screenshot.entry.description'],
       description: 'Description for this extension',
-      id: 'snapshot.entry.description'
+      id: 'screenshot.entry.description'
     });
   },
   featured: true,
   disabled: false,
   bluetoothRequired: false,
   internetConnectionRequired: false,
-  helpLink: 'https://tfabworks.github.io/xcx-snapshot/',
+  helpLink: 'https://tfabworks.github.io/xcx-screenshot/',
   setFormatMessage: function setFormatMessage(formatter) {
     formatMessage$1 = formatter;
   },
@@ -545,32 +545,32 @@ var ArgumentType = {
 var argumentType = ArgumentType;
 
 var en = {
-	"snapshot.name": "Snapshot",
-	"snapshot.saveSnapshot": "Save the snapshot as [NAME]",
-	"snapshot.defaultName": "snapshot1"
+	"screenshot.name": "Screenshot",
+	"screenshot.saveScreenshot": "Save the screenshot as [NAME]",
+	"screenshot.defaultName": "screenshot1"
 };
 var ja = {
-	"snapshot.name": "スナップショット",
-	"snapshot.saveSnapshot": "スナップショットを[NAME]という名前で保存する",
-	"snapshot.defaultName": "スナップショット1"
+	"screenshot.name": "スナップショット",
+	"screenshot.saveScreenshot": "スナップショットを[NAME]という名前で保存する",
+	"screenshot.defaultName": "スナップショット1"
 };
 var translations = {
 	en: en,
 	ja: ja,
 	"ja-Hira": {
-	"snapshot.name": "すなっぷしょっと",
-	"snapshot.saveSnapshot": "すなっぷしょっとを[NAME]というなまえでほぞんする",
-	"snapshot.defaultName": "すなっぷしょっと1"
+	"screenshot.name": "すなっぷしょっと",
+	"screenshot.saveScreenshot": "すなっぷしょっとを[NAME]というなまえでほぞんする",
+	"screenshot.defaultName": "すなっぷしょっと1"
 },
 	"zh-cn": {
-	"snapshot.name": "快照",
-	"snapshot.saveSnapshot": "将快照保存为 [NAME]",
-	"snapshot.deviceName": "快照1"
+	"screenshot.name": "快照",
+	"screenshot.saveScreenshot": "将快照保存为 [NAME]",
+	"screenshot.deviceName": "快照1"
 },
 	"zh-tw": {
-	"snapshot.name": "快照",
-	"snapshot.saveSnapshot": "将快照保存为 [NAME]",
-	"snapshot.deviceName": "快照2"
+	"screenshot.name": "快照",
+	"screenshot.saveScreenshot": "将快照保存为 [NAME]",
+	"screenshot.deviceName": "快照2"
 }
 };
 
@@ -595,21 +595,21 @@ var setupTranslations = function setupTranslations() {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
-var EXTENSION_ID = 'snapshot';
+var EXTENSION_ID = 'screenshot';
 
 /**
  * URL to get this extension as a module.
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-var extensionURL = 'https://tfabworks.github.io/xcx-snapshot/dist/snapshot.mjs';
+var extensionURL = 'https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs';
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
  */
 var ExtensionBlocks = /*#__PURE__*/function () {
   /**
-   * Construct a set of blocks for Snapshot.
+   * Construct a set of blocks for Screenshot.
    * @param {Runtime} runtime - the Scratch 3.0 runtime.
    */
   function ExtensionBlocks(runtime) {
@@ -638,7 +638,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     // Video 関連の監視を開始する
     this._registerListeners();
-    window.snapshot = this; // DEBUG
+    window.screenshot = this; // DEBUG
   }
 
   /**
@@ -655,17 +655,17 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         blockIconURI: img,
         showStatusButton: false,
         blocks: [{
-          opcode: 'saveSnapshot',
+          opcode: 'saveScreenshot',
           blockType: blockType.COMMAND,
           text: formatMessage({
-            id: 'snapshot.saveSnapshot',
-            default: translations.en['snapshot.saveSnapshot'],
-            description: 'Save ths snapshot'
+            id: 'screenshot.saveScreenshot',
+            default: translations.en['screenshot.saveScreenshot'],
+            description: 'Save ths screenshot'
           }),
           arguments: {
             NAME: {
               type: argumentType.STRING,
-              defaultValue: translations.en['snapshot.defaultName'],
+              defaultValue: translations.en['screenshot.defaultName'],
               menu: 'Name of costume'
             }
           }
@@ -674,8 +674,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       };
     }
   }, {
-    key: "saveSnapshot",
-    value: function saveSnapshot(args) {
+    key: "saveScreenshot",
+    value: function saveScreenshot(args) {
       var name = args.NAME || '';
       if (name === '') {
         return;
@@ -690,8 +690,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      */
     function get() {
       return formatMessage({
-        id: 'snapshot.name',
-        default: translations.en['snapshot.name'],
+        id: 'screenshot.name',
+        default: translations.en['screenshot.name'],
         description: 'name of the extension'
       });
     }

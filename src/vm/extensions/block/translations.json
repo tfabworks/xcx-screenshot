@@ -1,17 +1,17 @@
 {
   "en": {
-    "snapshot.name": "Snapshot",
-    "snapshot.saveSnapshot": "Save the snapshot as [NAME]",
-    "snapshot.defaultName": "screen1"
+    "screenshot.name": "Screenshot",
+    "screenshot.saveScreenshot": "Save the screenshot as [NAME]",
+    "screenshot.defaultName": "screen1"
   },
   "ja": {
-    "snapshot.name": "スナップショット",
-    "snapshot.saveSnapshot": "画面を[NAME]に保存",
-    "snapshot.defaultName": "screen1"
+    "screenshot.name": "スクリーンショット",
+    "screenshot.saveScreenshot": "画面を[NAME]に保存",
+    "screenshot.defaultName": "screen1"
   },
   "ja-Hira": {
-    "snapshot.name": "すなっぷしょっと",
-    "snapshot.saveSnapshot": "がめんを[NAME]に保存",
-    "snapshot.defaultName": "screen1"
+    "screenshot.name": "すくりーんしょっと",
+    "screenshot.saveScreenshot": "がめんを[NAME]に保存",
+    "screenshot.defaultName": "screen1"
   }
 }

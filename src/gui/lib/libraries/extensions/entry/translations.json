@@ -1,22 +1,22 @@
 {
   "en": {
-    "snapshot.entry.name": "Snapshot",
-    "snapshot.entry.description": "Make the camera selectable. This is an extension to help with extensions that use all cameras."
+    "screenshot.entry.name": "Screenshot",
+    "screenshot.entry.description": "This is an extension to save screenshots as images in costumes."
   },
   "ja": {
-    "snapshot.entry.name": "スナップショット",
-    "snapshot.entry.description": "ステージのスナップショットを取得して画像をコスチュームとして保存する拡張です。"
+    "screenshot.entry.name": "スクリーンショット",
+    "screenshot.entry.description": "スクリーンショットをコスチュームに画像として保存する拡張です。"
   },
   "ja-Hira": {
-    "snapshot.entry.name": "すなっぷしょっと",
-    "snapshot.entry.description": "すくらっちのすてーじのすなっぷしょっとをしゅとくしてがぞうをこすちゅーむとしてほぞんするえくすてんしょんです。"
+    "screenshot.entry.name": "スクリーンショット",
+    "screenshot.entry.description": "すくりーんしょっとをこすちゅーむにがぞうとしてほぞんするかくちょうです。"
   },
   "zh-cn": {
-    "snapshot.entry.name": "快照",
-    "snapshot.entry.description": "这是一个扩展, 可以捕获Scratch舞台的快照, 并将它们作为服装保存。"
+    "screenshot.entry.name": "屏幕截图",
+    "screenshot.entry.description": "这是一个扩展，可以将屏幕截图保存为服装中的图片。"
   },
   "zh-tw": {
-    "snapshot.entry.name": "快照",
-    "snapshot.entry.description": "這是一個擴展, 可以捕獲Scratch舞台的快照, 並將它們作為服裝保存。"
+    "screenshot.entry.name": "螢幕截圖",
+    "screenshot.entry.description": "這是一個擴展，可以將螢幕截圖保存為服裝中的圖片。"
   }
 }
