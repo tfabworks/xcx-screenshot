@@ -3,7 +3,7 @@ import ArgumentType from "../../extension-support/argument-type";
 import Cast from "../../util/cast";
 import translations from "./translations.json";
 import blockIcon from "./block-icon.png";
-
+import strftime from "strftime";
 const { loadCostume } = require("../../import/load-costume.js");
 const RenderedTarget = require("../../sprites/rendered-target.js");
 const Sprite = require("../../sprites/sprite.js");
@@ -37,7 +37,8 @@ const EXTENSION_ID = "screenshot";
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-let extensionURL = "https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs";
+let extensionURL =
+	"https://tfabworks.github.io/xcx-screenshot/dist/screenshot.mjs";
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
@@ -94,11 +95,13 @@ class ExtensionBlocks {
 			formatMessage = runtime.formatMessage;
 		}
 
-		/** @type {HTMLCanvasElement} */
-		this.canvas = document.querySelector("canvas");
+		/**
+		 * ステージ用canvasの取得は this.canvas を使うこと。
+		 * @type {HTMLCanvasElement}
+		 */
+		this._canvas = null;
 
 		window.screenshot = this; // DEBUG
-		window.loadCostume = loadCostume; // DEBUG
 	}
 
 	/**
@@ -114,31 +117,66 @@ class ExtensionBlocks {
 			showStatusButton: false,
 			blocks: [
 				{
+					opcode: "strftime",
+					blockType: BlockType.REPORTER,
+					text: this.message_strftime,
+					arguments: {
+						FORMAT: {
+							type: ArgumentType.STRING,
+							defaultValue: "%Y-%m-%d %H:%M:%S",
+						},
+					},
+				},
+				{
 					opcode: "saveScreenshot",
 					blockType: BlockType.COMMAND,
-					text: formatMessage({
-						id: "screenshot.saveScreenshot",
-						default: translations.en["screenshot.saveScreenshot"],
-						description: "Save ths screenshot",
-					}),
+					text: this.message_saveScreenshot,
 					arguments: {
-						NAME: {
+						COSTUME_NAME: {
 							type: ArgumentType.STRING,
-							defaultValue: translations.en["screenshot.defaultName"],
+							defaultValue: this.message_saveScreenshot_defaultCostumeName,
+						},
+						SPRITE_NAME: {
+							type: ArgumentType.STRING,
+							defaultValue: this.getSpriteNamesMenu[0] || "",
+							menu: "spriteNamesMenu",
 						},
 					},
 				},
 			],
-			menus: {},
+			menus: {
+				spriteNamesMenu: {
+					items: "getSpriteNamesMenu",
+				},
+			},
 		};
 	}
 
-	async saveScreenshot(args) {
-		const spriteName = args.SPRITE_NAME || "Screenshot";
-		const costumeName = args.COSTUME_NAME || new Date().toLocaleString();
-		const canvas = document.querySelector("canvas");
-		const { width, height } = canvas;
-		const imageDataUrl = await canvasToDataURL(canvas);
+	strftime(args) {
+		const format = args.FORMAT || "";
+		return strftime(format);
+	}
+
+	getSpriteNamesMenu() {
+		return this.runtime.targets
+			.filter((t) => !t.isStage)
+			.map((t) => t.sprite.name);
+	}
+
+	async saveScreenshotWithMenu(args) {
+		return this.saveScreenshot(args);
+	}
+
+	async saveScreenshot(args, util, util2) {
+		const spriteName = args.SPRITE_NAME || "";
+		const costumeName = args.COSTUME_NAME || "";
+		if (!spriteName || !costumeName) {
+			return;
+		}
+		window.util = util;
+		window.util2 = util2;
+		const { width, height } = this.canvas;
+		const imageDataUrl = await canvasToDataURL(this.canvas);
 		// 画像バイナリを Asset に変換
 		const asset = this.runtime.storage.createAsset(
 			this.runtime.storage.AssetType.ImageBitmap,
@@ -159,18 +197,16 @@ class ExtensionBlocks {
 		const target = this._getSpriteTargetOrCreate(spriteName);
 
 		// 名前から既存のコスチュームを探す
-		const costume = target.getCostumes().find(c => c.name === costumeName)
+		const costume = target.getCostumes().find((c) => c.name === costumeName);
 		if (!costume) {
 			// 新規
 			this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
+			target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
 		} else {
 			// 更新
 			// 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
 			// https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
-			Object.assign(
-				costume,
-				costumeUpdata,
-			);
+			Object.assign(costume, costumeUpdata);
 			const bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
 			const rotationCenterX = width / 2;
 			const rotationCenterY = height / 2;
@@ -188,7 +224,6 @@ class ExtensionBlocks {
 			);
 		}
 		this.runtime.vm.emitTargetsUpdate();
-		window.target = target
 	}
 
 	/**
@@ -205,9 +240,44 @@ class ExtensionBlocks {
 		sprite.name = spriteName;
 		const target = new RenderedTarget(sprite, this.runtime);
 		target.initDrawable(StageLayering.SPRITE_LAYER); // これをやっておかないとスプライトを切り替えた瞬間に「うわ！何か問題がはっせいしました。」というエラーが発生する
-		// target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
 		this.runtime.addTarget(target);
-		return target
+		return target;
+	}
+
+	/**
+	 * ステージの canvas エレメントを取得する。
+	 * 動的に querySelector("canvas") を取得するとプログラム実行中にコスチュームエディタ等の画面に移動した際に、
+	 * 目的とは別のcanvasが取得されてしまう事があるのでステージ用の canvas を一度取得したらそれを保持しておくようにする。
+	 * @returns {HTMLCanvasElement}
+	 */
+	get canvas() {
+		if (!this._canvas) {
+			const canvas = document.querySelector("canvas");
+			// ステージ用の canvas を見つけたらそれを保持する
+			if (canvas && canvas.closest("[class*=stage-wrapper]")) {
+				this._canvas = canvas;
+			}
+		}
+		return this._canvas;
+	}
+
+	/** @private @type {string} id @return {string} */
+	_message(id) {
+		const id2 = `${EXTENSION_ID}.${id}`;
+		console.log(id2);
+		return formatMessage({ id: id2, default: translations.en[id2] });
+	}
+	get message_strftime() {
+		return this._message("strftime");
+	}
+	get message_saveScreenshot() {
+		return this._message("saveScreenshot");
+	}
+	get message_saveScreenshot_defaultSpriteName() {
+		return this._message("saveScreenshot_defaultSpriteName");
+	}
+	get message_saveScreenshot_defaultCostumeName() {
+		return this._message("saveScreenshot_defaultCostumeName");
 	}
 }
 
@@ -228,18 +298,16 @@ const canvasToDataURL = async (canvas, type = "image/png") => {
 				height,
 			});
 			const ctx = canvas2.getContext("2d");
-			const dataUrls = [];
 			// 出来立てのcanvasは真っ白
-			dataUrls.push(canvas2.toDataURL(type));
+			// const dataUrl0 = canvas2.toDataURL(type);
 			// ここで取得すると真っ黒になる
-			ctx.drawImage(canvas, 0, 0);
-			dataUrls.push(canvas2.toDataURL(type));
+			// ctx.drawImage(canvas, 0, 0);
+			// const dataUrl1 = canvas2.toDataURL(type);
 			requestAnimationFrame(() => {
 				// 一度描画させたタイミングならちゃんと見えてる画像が取れる
 				ctx.drawImage(canvas, 0, 0);
-				dataUrls.push(canvas2.toDataURL(type));
-				console.log(dataUrls);
-				resolve(dataUrls[2]);
+				const dataUrl = canvas2.toDataURL(type);
+				resolve(dataUrl);
 			});
 		});
 	}
