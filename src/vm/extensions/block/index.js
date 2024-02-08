@@ -3,11 +3,7 @@ import ArgumentType from "../../extension-support/argument-type";
 import Cast from "../../util/cast";
 import translations from "./translations.json";
 import blockIcon from "./block-icon.png";
-import strftime from "strftime";
-const { loadCostume } = require("../../import/load-costume.js");
-const RenderedTarget = require("../../sprites/rendered-target.js");
-const Sprite = require("../../sprites/sprite.js");
-const StageLayering = require("../../engine/stage-layering.js");
+import strftime from "./strftime.js";
 
 /**
  * Formatter which is used for translation.

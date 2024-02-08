@@ -8,13 +8,10 @@
 		"preregister": "npm run setup-prerequisites",
 		"prebuild": "npm run register",
 		"prestart": "npm run register",
-		"setup-prerequisites": "test -d ../scratch-gui || git clone --depth 1 https://github.com/xcratch/scratch-gui.git ../scratch-gui; test -d ../scratch-vm || git clone --depth 1 https://github.com/xcratch/scratch-vm.git ../scratch-vm; test -d ../scratch-gui/node_modules/scratch-vm || ( (cd ../scratch-vm && npm install && npm link); (cd ../scratch-gui && npm install && npm link scratch-vm); )"
+		"setup-prerequisites": "test -d ../scratch-gui || git clone --depth 1 https://github.com/xcratch/scratch-gui.git ../scratch-gui; test -d ../scratch-vm || git clone --depth 1 https://github.com/xcratch/scratch-vm.git ../scratch-vm; test -d ../scratch-gui/node_modules/scratch-vm || ( (cd ../scratch-vm && npm install && npm link); (cd ../scratch-gui && npm install && npm link scratch-vm); ); test -d ../scratch-vm/node_modules/strftime || (cd ../scratch-vm && npm install -D strftime)"
 	},
 	"devDependencies": {
 		"xcratch-build": "^0.4.0",
 		"xcratch-register": "^0.4.2"
-	},
-	"dependencies": {
-		"strftime": "^0.10.2"
 	}
 }
