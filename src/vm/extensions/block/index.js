@@ -3,7 +3,6 @@ import ArgumentType from "../../extension-support/argument-type";
 import Cast from "../../util/cast";
 import translations from "./translations.json";
 import blockIcon from "./block-icon.png";
-import strftime from "./strftime.js";
 
 /**
  * Formatter which is used for translation.
@@ -113,17 +112,6 @@ class ExtensionBlocks {
 			showStatusButton: false,
 			blocks: [
 				{
-					opcode: "strftime",
-					blockType: BlockType.REPORTER,
-					text: this.message_strftime,
-					arguments: {
-						FORMAT: {
-							type: ArgumentType.STRING,
-							defaultValue: "%Y-%m-%d %H:%M:%S",
-						},
-					},
-				},
-				{
 					opcode: "saveScreenshot",
 					blockType: BlockType.COMMAND,
 					text: this.message_saveScreenshot,
@@ -132,11 +120,11 @@ class ExtensionBlocks {
 							type: ArgumentType.STRING,
 							defaultValue: this.message_saveScreenshot_defaultCostumeName,
 						},
-						SPRITE_NAME: {
-							type: ArgumentType.STRING,
-							defaultValue: this.getSpriteNamesMenu[0] || "",
-							menu: "spriteNamesMenu",
-						},
+						// SPRITE_NAME: {
+						// 	type: ArgumentType.STRING,
+						// 	defaultValue: this.getSpriteNamesMenu[0] || "",
+						// 	menu: "spriteNamesMenu",
+						// },
 					},
 				},
 			],
@@ -148,33 +136,20 @@ class ExtensionBlocks {
 		};
 	}
 
-	strftime(args) {
-		const format = args.FORMAT || "";
-		return strftime(format);
-	}
-
 	getSpriteNamesMenu() {
 		return this.runtime.targets
 			.filter((t) => !t.isStage)
 			.map((t) => t.sprite.name);
 	}
 
-	async saveScreenshotWithMenu(args) {
-		return this.saveScreenshot(args);
-	}
-
-	async saveScreenshot(args, util, util2) {
+	async saveScreenshot(args, util) {
 		const spriteName = args.SPRITE_NAME || "";
-		const target = this.runtime.getSpriteTargetByName(spriteName)
-		if(!target) {
-			return
-		}
+		const myTarget = util.target //コマンドの呼び出し元ターゲット
+		const target = this.runtime.getSpriteTargetByName(spriteName) || myTarget
 		const costumeName = args.COSTUME_NAME || "";
 		if (!costumeName) {
 			return;
 		}
-		window.util = util;
-		window.util2 = util2;
 		const { width, height } = this.canvas;
 		const imageDataUrl = await canvasToDataURL(this.canvas);
 		// 画像バイナリを Asset に変換

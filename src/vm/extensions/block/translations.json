@@ -2,22 +2,22 @@
   "en": {
     "screenshot.name": "Screenshot",
     "screenshot.strftime": "Current Time [FORMAT]",
-    "screenshot.saveScreenshot": "Save screenshot to [SPRITE_NAME] [COSTUME_NAME]",
+    "screenshot.saveScreenshot": "Save screenshot to [COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "Screenshot",
-    "screenshot.saveScreenshot_defaultCostumeName": "Costume1"
+    "screenshot.saveScreenshot_defaultCostumeName": "Screenshot1"
   },
   "ja": {
     "screenshot.name": "スクリーンショット",
     "screenshot.strftime": "現在日時[FORMAT]",
-    "screenshot.saveScreenshot": "画面を[SPRITE_NAME]に保存 [COSTUME_NAME]",
+    "screenshot.saveScreenshot": "画面を保存[COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "スクリーン",
-    "screenshot.saveScreenshot_defaultCostumeName": "コスチューム1"
+    "screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
   },
   "ja-Hira": {
     "screenshot.name": "すくりーんしょっと",
     "screenshot.strftime": "げんざいにちじ[FORMAT]",
-    "screenshot.saveScreenshot": "がめんを[SPRITE_NAME]にほぞん [COSTUME_NAME]",
+    "screenshot.saveScreenshot": "がめんをほぞん[COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "すくりーん",
-    "screenshot.saveScreenshot_defaultCostumeName": "こすちゅーむ1"
+    "screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
   }
 }

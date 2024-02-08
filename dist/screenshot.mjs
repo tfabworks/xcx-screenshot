@@ -579,16 +579,16 @@ var argumentType = ArgumentType;
 var en = {
 	"screenshot.name": "Screenshot",
 	"screenshot.strftime": "Current Time [FORMAT]",
-	"screenshot.saveScreenshot": "Save screenshot to [SPRITE_NAME] [COSTUME_NAME]",
+	"screenshot.saveScreenshot": "Save screenshot to [COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "Screenshot",
-	"screenshot.saveScreenshot_defaultCostumeName": "Costume1"
+	"screenshot.saveScreenshot_defaultCostumeName": "Screenshot1"
 };
 var ja = {
 	"screenshot.name": "スクリーンショット",
 	"screenshot.strftime": "現在日時[FORMAT]",
-	"screenshot.saveScreenshot": "画面を[SPRITE_NAME]に保存 [COSTUME_NAME]",
+	"screenshot.saveScreenshot": "画面を保存[COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "スクリーン",
-	"screenshot.saveScreenshot_defaultCostumeName": "コスチューム1"
+	"screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
 };
 var translations = {
 	en: en,
@@ -596,797 +596,13 @@ var translations = {
 	"ja-Hira": {
 	"screenshot.name": "すくりーんしょっと",
 	"screenshot.strftime": "げんざいにちじ[FORMAT]",
-	"screenshot.saveScreenshot": "がめんを[SPRITE_NAME]にほぞん [COSTUME_NAME]",
+	"screenshot.saveScreenshot": "がめんをほぞん[COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "すくりーん",
-	"screenshot.saveScreenshot_defaultCostumeName": "こすちゅーむ1"
+	"screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
 }
 };
 
 var img = "data:image/png;base64,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";
-
-(function () {
-  var Locales = {
-    de_DE: {
-      identifier: 'de-DE',
-      days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-      shortDays: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-      months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-      shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d.%m.%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    en_CA: {
-      identifier: 'en-CA',
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      ordinalSuffixes: ['st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d/%m/%y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%r',
-        x: '%D'
-      }
-    },
-    en_US: {
-      identifier: 'en-US',
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      ordinalSuffixes: ['st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'st'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%m/%d/%y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%r',
-        x: '%D'
-      }
-    },
-    es_MX: {
-      identifier: 'es-MX',
-      days: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-      shortDays: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-      months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-      shortMonths: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d/%m/%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    fr_FR: {
-      identifier: 'fr-FR',
-      days: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
-      shortDays: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
-      months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
-      shortMonths: ['janv.', 'févr.', 'mars', 'avril', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d/%m/%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    it_IT: {
-      identifier: 'it-IT',
-      days: ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'],
-      shortDays: ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'],
-      months: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
-      shortMonths: ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d/%m/%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    nl_NL: {
-      identifier: 'nl-NL',
-      days: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
-      shortDays: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
-      months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-      shortMonths: ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d-%m-%y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    pt_BR: {
-      identifier: 'pt-BR',
-      days: ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'],
-      shortDays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-      months: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
-      shortMonths: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d-%m-%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    ru_RU: {
-      identifier: 'ru-RU',
-      days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-      shortDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-      months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-      shortMonths: ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
-      AM: 'AM',
-      PM: 'PM',
-      am: 'am',
-      pm: 'pm',
-      formats: {
-        c: '%a %d %b %Y %X',
-        D: '%d.%m.%y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    tr_TR: {
-      identifier: 'tr-TR',
-      days: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
-      shortDays: ['Paz', 'Pzt', 'Sal', 'Çrş', 'Prş', 'Cum', 'Cts'],
-      months: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
-      shortMonths: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
-      AM: 'ÖÖ',
-      PM: 'ÖS',
-      am: 'ÖÖ',
-      pm: 'ÖS',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d-%m-%Y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%T',
-        x: '%D'
-      }
-    },
-    // By michaeljayt<michaeljayt@gmail.com>
-    // https://github.com/michaeljayt/strftime/commit/bcb4c12743811d51e568175aa7bff3fd2a77cef3
-    zh_CN: {
-      identifier: 'zh-CN',
-      days: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-      shortDays: ['日', '一', '二', '三', '四', '五', '六'],
-      months: ['一月份', '二月份', '三月份', '四月份', '五月份', '六月份', '七月份', '八月份', '九月份', '十月份', '十一月份', '十二月份'],
-      shortMonths: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-      AM: '上午',
-      PM: '下午',
-      am: '上午',
-      pm: '下午',
-      formats: {
-        c: '%a %d %b %Y %X %Z',
-        D: '%d/%m/%y',
-        F: '%Y-%m-%d',
-        R: '%H:%M',
-        r: '%I:%M:%S %p',
-        T: '%H:%M:%S',
-        v: '%e-%b-%Y',
-        X: '%r',
-        x: '%D'
-      }
-    }
-  };
-  var DefaultLocale = Locales['en_US'],
-    defaultStrftime = new Strftime(DefaultLocale, 0, false),
-    isCommonJS = typeof module !== 'undefined',
-    namespace;
-
-  // CommonJS / Node module
-  if (isCommonJS) {
-    namespace = module.exports = defaultStrftime;
-  }
-  // Browsers and other environments
-  else {
-    // Get the global object. Works in ES3, ES5, and ES5 strict mode.
-    namespace = function () {
-      return this || (0, eval)('this');
-    }();
-    namespace.strftime = defaultStrftime;
-  }
-
-  // Polyfill Date.now for old browsers.
-  if (typeof Date.now !== 'function') {
-    Date.now = function () {
-      return +new Date();
-    };
-  }
-  function Strftime(locale, customTimezoneOffset, useUtcTimezone) {
-    var _locale = locale || DefaultLocale,
-      _customTimezoneOffset = customTimezoneOffset || 0,
-      _useUtcBasedDate = useUtcTimezone || false,
-      // we store unix timestamp value here to not create new Date() each iteration (each millisecond)
-      // Date.now() is 2 times faster than new Date()
-      // while millisecond precise is enough here
-      // this could be very helpful when strftime triggered a lot of times one by one
-      _cachedDateTimestamp = 0,
-      _cachedDate;
-    function _strftime(format, date) {
-      var timestamp;
-      if (!date) {
-        var currentTimestamp = Date.now();
-        if (currentTimestamp > _cachedDateTimestamp) {
-          _cachedDateTimestamp = currentTimestamp;
-          _cachedDate = new Date(_cachedDateTimestamp);
-          timestamp = _cachedDateTimestamp;
-          if (_useUtcBasedDate) {
-            // how to avoid duplication of date instantiation for utc here?
-            // we tied to getTimezoneOffset of the current date
-            _cachedDate = new Date(_cachedDateTimestamp + getTimestampToUtcOffsetFor(_cachedDate) + _customTimezoneOffset);
-          }
-        } else {
-          timestamp = _cachedDateTimestamp;
-        }
-        date = _cachedDate;
-      } else {
-        timestamp = date.getTime();
-        if (_useUtcBasedDate) {
-          var utcOffset = getTimestampToUtcOffsetFor(date);
-          date = new Date(timestamp + utcOffset + _customTimezoneOffset);
-          // If we've crossed a DST boundary with this calculation we need to
-          // adjust the new date accordingly or it will be off by an hour in UTC.
-          if (getTimestampToUtcOffsetFor(date) !== utcOffset) {
-            var newUTCOffset = getTimestampToUtcOffsetFor(date);
-            date = new Date(timestamp + newUTCOffset + _customTimezoneOffset);
-          }
-        }
-      }
-      return _processFormat(format, date, _locale, timestamp);
-    }
-    function _processFormat(format, date, locale, timestamp) {
-      var resultString = '',
-        padding = null,
-        isInScope = false,
-        length = format.length,
-        extendedTZ = false;
-      for (var i = 0; i < length; i++) {
-        var currentCharCode = format.charCodeAt(i);
-        if (isInScope === true) {
-          // '-'
-          if (currentCharCode === 45) {
-            padding = '';
-            continue;
-          }
-          // '_'
-          else if (currentCharCode === 95) {
-            padding = ' ';
-            continue;
-          }
-          // '0'
-          else if (currentCharCode === 48) {
-            padding = '0';
-            continue;
-          }
-          // ':'
-          else if (currentCharCode === 58) {
-            if (extendedTZ) {
-              warn("[WARNING] detected use of unsupported %:: or %::: modifiers to strftime");
-            }
-            extendedTZ = true;
-            continue;
-          }
-          switch (currentCharCode) {
-            // Examples for new Date(0) in GMT
-
-            // '%'
-            // case '%':
-            case 37:
-              resultString += '%';
-              break;
-
-            // 'Thursday'
-            // case 'A':
-            case 65:
-              resultString += locale.days[date.getDay()];
-              break;
-
-            // 'January'
-            // case 'B':
-            case 66:
-              resultString += locale.months[date.getMonth()];
-              break;
-
-            // '19'
-            // case 'C':
-            case 67:
-              resultString += padTill2(Math.floor(date.getFullYear() / 100), padding);
-              break;
-
-            // '01/01/70'
-            // case 'D':
-            case 68:
-              resultString += _processFormat(locale.formats.D, date, locale, timestamp);
-              break;
-
-            // '1970-01-01'
-            // case 'F':
-            case 70:
-              resultString += _processFormat(locale.formats.F, date, locale, timestamp);
-              break;
-
-            // '00'
-            // case 'H':
-            case 72:
-              resultString += padTill2(date.getHours(), padding);
-              break;
-
-            // '12'
-            // case 'I':
-            case 73:
-              resultString += padTill2(hours12(date.getHours()), padding);
-              break;
-
-            // '000'
-            // case 'L':
-            case 76:
-              resultString += padTill3(Math.floor(timestamp % 1000));
-              break;
-
-            // '00'
-            // case 'M':
-            case 77:
-              resultString += padTill2(date.getMinutes(), padding);
-              break;
-
-            // 'am'
-            // case 'P':
-            case 80:
-              resultString += date.getHours() < 12 ? locale.am : locale.pm;
-              break;
-
-            // '00:00'
-            // case 'R':
-            case 82:
-              resultString += _processFormat(locale.formats.R, date, locale, timestamp);
-              break;
-
-            // '00'
-            // case 'S':
-            case 83:
-              resultString += padTill2(date.getSeconds(), padding);
-              break;
-
-            // '00:00:00'
-            // case 'T':
-            case 84:
-              resultString += _processFormat(locale.formats.T, date, locale, timestamp);
-              break;
-
-            // '00'
-            // case 'U':
-            case 85:
-              resultString += padTill2(weekNumber(date, 'sunday'), padding);
-              break;
-
-            // '00'
-            // case 'W':
-            case 87:
-              resultString += padTill2(weekNumber(date, 'monday'), padding);
-              break;
-
-            // '16:00:00'
-            // case 'X':
-            case 88:
-              resultString += _processFormat(locale.formats.X, date, locale, timestamp);
-              break;
-
-            // '1970'
-            // case 'Y':
-            case 89:
-              resultString += date.getFullYear();
-              break;
-
-            // 'GMT'
-            // case 'Z':
-            case 90:
-              if (_useUtcBasedDate && _customTimezoneOffset === 0) {
-                resultString += "GMT";
-              } else {
-                var tzName = getTimezoneName(date);
-                resultString += tzName || '';
-              }
-              break;
-
-            // 'Thu'
-            // case 'a':
-            case 97:
-              resultString += locale.shortDays[date.getDay()];
-              break;
-
-            // 'Jan'
-            // case 'b':
-            case 98:
-              resultString += locale.shortMonths[date.getMonth()];
-              break;
-
-            // ''
-            // case 'c':
-            case 99:
-              resultString += _processFormat(locale.formats.c, date, locale, timestamp);
-              break;
-
-            // '01'
-            // case 'd':
-            case 100:
-              resultString += padTill2(date.getDate(), padding);
-              break;
-
-            // ' 1'
-            // case 'e':
-            case 101:
-              resultString += padTill2(date.getDate(), padding == null ? ' ' : padding);
-              break;
-
-            // 'Jan'
-            // case 'h':
-            case 104:
-              resultString += locale.shortMonths[date.getMonth()];
-              break;
-
-            // '000'
-            // case 'j':
-            case 106:
-              var y = new Date(date.getFullYear(), 0, 1);
-              var day = Math.ceil((date.getTime() - y.getTime()) / (1000 * 60 * 60 * 24));
-              resultString += padTill3(day);
-              break;
-
-            // ' 0'
-            // case 'k':
-            case 107:
-              resultString += padTill2(date.getHours(), padding == null ? ' ' : padding);
-              break;
-
-            // '12'
-            // case 'l':
-            case 108:
-              resultString += padTill2(hours12(date.getHours()), padding == null ? ' ' : padding);
-              break;
-
-            // '01'
-            // case 'm':
-            case 109:
-              resultString += padTill2(date.getMonth() + 1, padding);
-              break;
-
-            // '\n'
-            // case 'n':
-            case 110:
-              resultString += '\n';
-              break;
-
-            // '1st'
-            // case 'o':
-            case 111:
-              // Try to use an ordinal suffix from the locale, but fall back to using the old
-              // function for compatibility with old locales that lack them.
-              var day = date.getDate();
-              if (locale.ordinalSuffixes) {
-                resultString += String(day) + (locale.ordinalSuffixes[day - 1] || ordinal(day));
-              } else {
-                resultString += String(day) + ordinal(day);
-              }
-              break;
-
-            // 'AM'
-            // case 'p':
-            case 112:
-              resultString += date.getHours() < 12 ? locale.AM : locale.PM;
-              break;
-
-            // '12:00:00 AM'
-            // case 'r':
-            case 114:
-              resultString += _processFormat(locale.formats.r, date, locale, timestamp);
-              break;
-
-            // '0'
-            // case 's':
-            case 115:
-              resultString += Math.floor(timestamp / 1000);
-              break;
-
-            // '\t'
-            // case 't':
-            case 116:
-              resultString += '\t';
-              break;
-
-            // '4'
-            // case 'u':
-            case 117:
-              var day = date.getDay();
-              resultString += day === 0 ? 7 : day;
-              break;
-            // 1 - 7, Monday is first day of the week
-
-            // ' 1-Jan-1970'
-            // case 'v':
-            case 118:
-              resultString += _processFormat(locale.formats.v, date, locale, timestamp);
-              break;
-
-            // '4'
-            // case 'w':
-            case 119:
-              resultString += date.getDay();
-              break;
-            // 0 - 6, Sunday is first day of the week
-
-            // '12/31/69'
-            // case 'x':
-            case 120:
-              resultString += _processFormat(locale.formats.x, date, locale, timestamp);
-              break;
-
-            // '70'
-            // case 'y':
-            case 121:
-              var year = date.getFullYear() % 100;
-              resultString += padTill2(year, padding);
-              break;
-
-            // '+0000'
-            // case 'z':
-            case 122:
-              if (_useUtcBasedDate && _customTimezoneOffset === 0) {
-                resultString += extendedTZ ? "+00:00" : "+0000";
-              } else {
-                var off;
-                if (_customTimezoneOffset !== 0) {
-                  off = _customTimezoneOffset / (60 * 1000);
-                } else {
-                  off = -date.getTimezoneOffset();
-                }
-                var sign = off < 0 ? '-' : '+';
-                var sep = extendedTZ ? ':' : '';
-                var hours = Math.floor(Math.abs(off / 60));
-                var mins = Math.abs(off % 60);
-                resultString += sign + padTill2(hours) + sep + padTill2(mins);
-              }
-              break;
-            default:
-              if (isInScope) {
-                resultString += '%';
-              }
-              resultString += format[i];
-              break;
-          }
-          padding = null;
-          isInScope = false;
-          continue;
-        }
-
-        // '%'
-        if (currentCharCode === 37) {
-          isInScope = true;
-          continue;
-        }
-        resultString += format[i];
-      }
-      return resultString;
-    }
-    var strftime = _strftime;
-    strftime.localize = function (locale) {
-      return new Strftime(locale || _locale, _customTimezoneOffset, _useUtcBasedDate);
-    };
-    strftime.localizeByIdentifier = function (localeIdentifier) {
-      var locale = Locales[localeIdentifier];
-      if (!locale) {
-        warn('[WARNING] No locale found with identifier "' + localeIdentifier + '".');
-        return strftime;
-      }
-      return strftime.localize(locale);
-    };
-    strftime.timezone = function (timezone) {
-      var customTimezoneOffset = _customTimezoneOffset;
-      var useUtcBasedDate = _useUtcBasedDate;
-      var timezoneType = _typeof$1(timezone);
-      if (timezoneType === 'number' || timezoneType === 'string') {
-        useUtcBasedDate = true;
-
-        // ISO 8601 format timezone string, [-+]HHMM
-        if (timezoneType === 'string') {
-          var sign = timezone[0] === '-' ? -1 : 1,
-            hours = parseInt(timezone.slice(1, 3), 10),
-            minutes = parseInt(timezone.slice(3, 5), 10);
-          customTimezoneOffset = sign * (60 * hours + minutes) * 60 * 1000;
-          // in minutes: 420
-        } else if (timezoneType === 'number') {
-          customTimezoneOffset = timezone * 60 * 1000;
-        }
-      }
-      return new Strftime(_locale, customTimezoneOffset, useUtcBasedDate);
-    };
-    strftime.utc = function () {
-      return new Strftime(_locale, _customTimezoneOffset, true);
-    };
-    return strftime;
-  }
-  function padTill2(numberToPad, paddingChar) {
-    if (paddingChar === '' || numberToPad > 9) {
-      return '' + numberToPad;
-    }
-    if (paddingChar == null) {
-      paddingChar = '0';
-    }
-    return paddingChar + numberToPad;
-  }
-  function padTill3(numberToPad) {
-    if (numberToPad > 99) {
-      return numberToPad;
-    }
-    if (numberToPad > 9) {
-      return '0' + numberToPad;
-    }
-    return '00' + numberToPad;
-  }
-  function hours12(hour) {
-    if (hour === 0) {
-      return 12;
-    } else if (hour > 12) {
-      return hour - 12;
-    }
-    return hour;
-  }
-
-  // firstWeekday: 'sunday' or 'monday', default is 'sunday'
-  //
-  // Pilfered & ported from Ruby's strftime implementation.
-  function weekNumber(date, firstWeekday) {
-    firstWeekday = firstWeekday || 'sunday';
-
-    // This works by shifting the weekday back by one day if we
-    // are treating Monday as the first day of the week.
-    var weekday = date.getDay();
-    if (firstWeekday === 'monday') {
-      if (weekday === 0)
-        // Sunday
-        weekday = 6;else weekday--;
-    }
-    var firstDayOfYearUtc = Date.UTC(date.getFullYear(), 0, 1),
-      dateUtc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
-      yday = Math.floor((dateUtc - firstDayOfYearUtc) / 86400000),
-      weekNum = (yday + 7 - weekday) / 7;
-    return Math.floor(weekNum);
-  }
-
-  // Get the ordinal suffix for a number: st, nd, rd, or th
-  function ordinal(number) {
-    var i = number % 10;
-    var ii = number % 100;
-    if (ii >= 11 && ii <= 13 || i === 0 || i >= 4) {
-      return 'th';
-    }
-    switch (i) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-    }
-  }
-  function getTimestampToUtcOffsetFor(date) {
-    return (date.getTimezoneOffset() || 0) * 60000;
-  }
-
-  // Tries to get a short timezone name using Date.toLocaleString, falling back on the platform default
-  // using Date.toString if necessary.
-  function getTimezoneName(date, localeIdentifier) {
-    return getShortTimezoneName(date, localeIdentifier) || getDefaultTimezoneName(date);
-  }
-
-  // Unfortunately this returns GMT+2 when running with `TZ=Europe/Amsterdam node test.js` so it's not
-  // perfect.
-  function getShortTimezoneName(date, localeIdentifier) {
-    if (localeIdentifier == null) return null;
-    var tzString = date.toLocaleString(localeIdentifier, {
-      timeZoneName: 'short'
-    }).match(/\s([\w]+)$/);
-    return tzString && tzString[1];
-  }
-
-  // This varies by platform so it's not an ideal way to get the time zone name. On most platforms it's
-  // a short name but in Node v10+ and Chrome 66+ it's a long name now. Prefer getShortTimezoneName(date)
-  // where possible.
-  function getDefaultTimezoneName(date) {
-    var tzString = date.toString().match(/\(([\w\s]+)\)/);
-    return tzString && tzString[1];
-  }
-  function warn(message) {
-    if (typeof console !== 'undefined' && typeof console.warn == 'function') {
-      console.warn(message);
-    }
-  }
-})();
-var _strftime = strftime;
 
 /**
  * Formatter which is used for translation.
@@ -1458,16 +674,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         blockIconURI: img,
         showStatusButton: false,
         blocks: [{
-          opcode: "strftime",
-          blockType: blockType.REPORTER,
-          text: this.message_strftime,
-          arguments: {
-            FORMAT: {
-              type: argumentType.STRING,
-              defaultValue: "%Y-%m-%d %H:%M:%S"
-            }
-          }
-        }, {
           opcode: "saveScreenshot",
           blockType: blockType.COMMAND,
           text: this.message_saveScreenshot,
@@ -1475,12 +681,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             COSTUME_NAME: {
               type: argumentType.STRING,
               defaultValue: this.message_saveScreenshot_defaultCostumeName
-            },
-            SPRITE_NAME: {
-              type: argumentType.STRING,
-              defaultValue: this.getSpriteNamesMenu[0] || "",
-              menu: "spriteNamesMenu"
             }
+            // SPRITE_NAME: {
+            // 	type: ArgumentType.STRING,
+            // 	defaultValue: this.getSpriteNamesMenu[0] || "",
+            // 	menu: "spriteNamesMenu",
+            // },
           }
         }],
         menus: {
@@ -1489,12 +695,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           }
         }
       };
-    }
-  }, {
-    key: "strftime",
-    value: function strftime(args) {
-      var format = args.FORMAT || "";
-      return _strftime(format);
     }
   }, {
     key: "getSpriteNamesMenu",
@@ -1506,54 +706,28 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "saveScreenshotWithMenu",
+    key: "saveScreenshot",
     value: function () {
-      var _saveScreenshotWithMenu = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(args) {
+      var _saveScreenshot = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(args, util) {
+        var spriteName, myTarget, target, costumeName, _this$canvas, width, height, imageDataUrl, asset, costumeUpdata, costume, bitmapResolution, rotationCenterX, rotationCenterY;
         return regenerator.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              return _context.abrupt("return", this.saveScreenshot(args));
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, this);
-      }));
-      function saveScreenshotWithMenu(_x) {
-        return _saveScreenshotWithMenu.apply(this, arguments);
-      }
-      return saveScreenshotWithMenu;
-    }()
-  }, {
-    key: "saveScreenshot",
-    value: function () {
-      var _saveScreenshot = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(args, util, util2) {
-        var spriteName, target, costumeName, _this$canvas, width, height, imageDataUrl, asset, costumeUpdata, costume, bitmapResolution, rotationCenterX, rotationCenterY;
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
               spriteName = args.SPRITE_NAME || "";
-              target = this.runtime.getSpriteTargetByName(spriteName);
-              if (target) {
-                _context2.next = 4;
-                break;
-              }
-              return _context2.abrupt("return");
-            case 4:
+              myTarget = util.target; //コマンドの呼び出し元ターゲット
+              target = this.runtime.getSpriteTargetByName(spriteName) || myTarget;
               costumeName = args.COSTUME_NAME || "";
               if (costumeName) {
-                _context2.next = 7;
+                _context.next = 6;
                 break;
               }
-              return _context2.abrupt("return");
-            case 7:
-              window.util = util;
-              window.util2 = util2;
+              return _context.abrupt("return");
+            case 6:
               _this$canvas = this.canvas, width = _this$canvas.width, height = _this$canvas.height;
-              _context2.next = 12;
+              _context.next = 9;
               return canvasToDataURL(this.canvas);
-            case 12:
-              imageDataUrl = _context2.sent;
+            case 9:
+              imageDataUrl = _context.sent;
               // 画像バイナリを Asset に変換
               asset = this.runtime.storage.createAsset(this.runtime.storage.AssetType.ImageBitmap, this.runtime.storage.DataFormat.PNG, dataUrlToUint8Array(imageDataUrl), null,
               // null: auto genenrate id
@@ -1587,13 +761,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
                 this.runtime.renderer.updateBitmapSkin(costume.skinId, dataUrlToImageData(imageDataUrl), bitmapResolution, [rotationCenterX / bitmapResolution, rotationCenterY / bitmapResolution]);
               }
               this.runtime.vm.emitTargetsUpdate();
-            case 18:
+            case 15:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
-        }, _callee2, this);
+        }, _callee, this);
       }));
-      function saveScreenshot(_x2, _x3, _x4) {
+      function saveScreenshot(_x, _x2) {
         return _saveScreenshot.apply(this, arguments);
       }
       return saveScreenshot;
@@ -1698,26 +872,26 @@ var ExtensionBlocks = /*#__PURE__*/function () {
  * @param {string} type
  */
 var canvasToDataURL = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(canvas) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(canvas) {
     var type,
-      _args3 = arguments;
-    return regenerator.wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+      _args2 = arguments;
+    return regenerator.wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          type = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : "image/png";
+          type = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : "image/png";
           if (!canvas.getContext("2d")) {
-            _context3.next = 3;
+            _context2.next = 3;
             break;
           }
-          return _context3.abrupt("return", Promise.resolve(canvas.toDataURL(type)));
+          return _context2.abrupt("return", Promise.resolve(canvas.toDataURL(type)));
         case 3:
           if (!["webgl2", "webgl"].some(function (t) {
             return !!canvas.getContext(t);
           })) {
-            _context3.next = 5;
+            _context2.next = 5;
             break;
           }
-          return _context3.abrupt("return", new Promise(function (resolve) {
+          return _context2.abrupt("return", new Promise(function (resolve) {
             var width = canvas.width,
               height = canvas.height;
             var canvas2 = Object.assign(document.createElement("canvas"), {
@@ -1739,11 +913,11 @@ var canvasToDataURL = /*#__PURE__*/function () {
           }));
         case 5:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
-    }, _callee3);
+    }, _callee2);
   }));
-  return function canvasToDataURL(_x5) {
+  return function canvasToDataURL(_x3) {
     return _ref.apply(this, arguments);
   };
 }();
