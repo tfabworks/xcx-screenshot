@@ -2,7 +2,7 @@
   "name": "xcx-snapshot",
   "version": "0.0.0",
   "scripts": {
-    "register": "npx -y xcratch-register --id=snapshot --gui=../scratch-gui --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry --core --link --use=extension-support util import",
+    "register": "npx -y xcratch-register --id=snapshot --gui=../scratch-gui --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry --core --link --use=extension-support util import sprites engine",
     "build": "npx -y xcratch-build --module=snapshot --gui=../scratch-gui --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry",
     "start": "cd ../scratch-gui && npm run start",
     "preregister": "npm run setup-prerequisites",

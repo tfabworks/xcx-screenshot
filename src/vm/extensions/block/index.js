@@ -5,6 +5,9 @@ import translations from "./translations.json";
 import blockIcon from "./block-icon.png";
 
 const { loadCostume } = require("../../import/load-costume.js");
+const RenderedTarget = require("../../sprites/rendered-target.js");
+const Sprite = require("../../sprites/sprite.js");
+const StageLayering = require("../../engine/stage-layering.js");
 
 /**
  * Formatter which is used for translation.
@@ -131,47 +134,80 @@ class ExtensionBlocks {
 	}
 
 	async saveSnapshot(args) {
-		const name = args.NAME || "";
-		if (name === "") {
-			return;
-		}
-		const dataUrl = await canvasToDataURL(document.querySelector("canvas"))
-		console.log(dataUrl)
-		window.dataURL = dataUrl;
-		const runtime = this.runtime;
-		const storage = this.runtime.storage;
-		const costumeIndex = runtime.vm.editingTarget.getCostumeIndexByName(name);
-		if (costumeIndex < 0) {
-			const asset = storage.createAsset(
-				storage.AssetType.ImageBitmap,
-				storage.DataFormat.PNG,
-				dataUrlToUint8Array(dataUrl),
-				null,
-				true, // generate md5
-			);
-			const costume = {
-				asset,
-				name, // コスチュームの名前になる
-				dataFormat: storage.DataFormat.PNG,
-				assetId: asset.assetId,
-				md5: `${asset.assetId}.${storage.DataFormat.PNG}`,
-			};
-			runtime.vm.addCostume(costume.md5, costume);
+		const spriteName = args.SPRITE_NAME || "Screenshot";
+		const costumeName = args.NAME || new Date().toLocaleString();
+		const canvas = document.querySelector("canvas");
+		const { width, height } = canvas;
+		const imageDataUrl = await canvasToDataURL(canvas);
+		// 画像バイナリを Asset に変換
+		const asset = this.runtime.storage.createAsset(
+			this.runtime.storage.AssetType.ImageBitmap,
+			this.runtime.storage.DataFormat.PNG,
+			dataUrlToUint8Array(imageDataUrl),
+			null, // null: auto genenrate id
+			true, // true: auto generate md5
+		);
+		// コスチュームの雛形オブジェクト
+		const costumeUpdata = {
+			name: costumeName,
+			asset,
+			dataFormat: asset.dataFormat,
+			assetId: asset.assetId,
+			md5: `${asset.assetId}.${asset.dataFormat}`,
+		};
+		// スプライト用ターゲットを取得or作成
+		const target = this._getSpriteTargetOrCreate(spriteName);
+
+		// 名前から既存のコスチュームを探す
+		const costume = target.getCostumes().find(c => c.name === costumeName)
+		if (!costume) {
+			// 新規
+			this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
 		} else {
 			// 更新
-			const costume = runtime.vm.editingTarget.getCostumes()[costumeIndex];
-			const imageData = convertUrlToImageData(dataUrl);
-			runtime.vm.updateBitmap(
-				costumeIndex,
-				imageData,
-				costume.rotationCenterX,
-				costume.rotationCenterX,
-				costume.bitmapResolution,
+			// 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
+			// https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
+			Object.assign(
+				costume,
+				costumeUpdata,
+			);
+			const bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
+			const rotationCenterX = width / 2;
+			const rotationCenterY = height / 2;
+			costume.size = [width, height];
+			costume.bitmapResolution = bitmapResolution;
+			// レンダラーが持ってるBitmapも更新する必要があるっぽい
+			this.runtime.renderer.updateBitmapSkin(
+				costume.skinId,
+				dataUrlToImageData(imageDataUrl),
+				bitmapResolution,
+				[
+					rotationCenterX / bitmapResolution,
+					rotationCenterY / bitmapResolution,
+				],
 			);
 		}
+		this.runtime.vm.emitTargetsUpdate();
+		window.target = target
+	}
 
-		window.dataURL = dataUrl; //DEBUG
-		window.costume = costume; //DEBUG
+	/**
+	 * スプライト用ターゲットを取得または作成する
+	 * @param {string} spriteName
+	 * @returns {RenderedTarget} target for the sprite
+	 */
+	_getSpriteTargetOrCreate(spriteName) {
+		const target0 = this.runtime.getSpriteTargetByName(spriteName);
+		if (target0) {
+			return target0;
+		}
+		const sprite = new Sprite(null, this.runtime);
+		sprite.name = spriteName;
+		const target = new RenderedTarget(sprite, this.runtime);
+		target.initDrawable(StageLayering.SPRITE_LAYER); // これをやっておかないとスプライトを切り替えた瞬間に「うわ！何か問題がはっせいしました。」というエラーが発生する
+		// target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
+		this.runtime.addTarget(target);
+		return target
 	}
 }
 
@@ -186,27 +222,54 @@ const canvasToDataURL = async (canvas, type = "image/png") => {
 	}
 	if (["webgl2", "webgl"].some((t) => !!canvas.getContext(t))) {
 		return new Promise((resolve) => {
-			const {width, height} = canvas;
- 			const canvas2 = Object.assign(document.createElement("canvas"), {width, height})
-			const ctx = canvas2.getContext("2d")
-			const dataUrls = []
+			const { width, height } = canvas;
+			const canvas2 = Object.assign(document.createElement("canvas"), {
+				width,
+				height,
+			});
+			const ctx = canvas2.getContext("2d");
+			const dataUrls = [];
 			// 出来立てのcanvasは真っ白
-			dataUrls.push(canvas2.toDataURL(type))
+			dataUrls.push(canvas2.toDataURL(type));
 			// ここで取得すると真っ黒になる
-			ctx.drawImage(canvas, 0, 0)
-			dataUrls.push(canvas2.toDataURL(type))
+			ctx.drawImage(canvas, 0, 0);
+			dataUrls.push(canvas2.toDataURL(type));
 			requestAnimationFrame(() => {
 				// 一度描画させたタイミングならちゃんと見えてる画像が取れる
-				ctx.drawImage(canvas, 0, 0)
-				dataUrls.push(canvas2.toDataURL(type))
-				console.log(dataUrls)
-				resolve(dataUrls[2])
+				ctx.drawImage(canvas, 0, 0);
+				dataUrls.push(canvas2.toDataURL(type));
+				console.log(dataUrls);
+				resolve(dataUrls[2]);
 			});
 		});
 	}
 };
 
-const dataUrlToUint8Array = url => base64ToUint8Array(url.substr(url.indexOf(';base64,')+8)||'')
-const base64ToUint8Array = b64 => new Uint8Array([].map.call(atob(b64),c=>c.charCodeAt(0)))
+const dataUrlToUint8Array = (url) =>
+	base64ToUint8Array(url.substr(url.indexOf(";base64,") + 8) || "");
+
+const base64ToUint8Array = (b64) =>
+	new Uint8Array([].map.call(atob(b64), (c) => c.charCodeAt(0)));
+
+const dataUrlToImageData = (url) =>
+	new Promise((resolve, reject) => {
+		if (url == null || url === "") {
+			return reject();
+		}
+		const img = Object.assign(new Image(), {
+			src: url,
+			onerror: reject,
+			onload: () => {
+				const canvas = Object.assign(document.createElement("canvas"), {
+					width: img.width,
+					height: img.height,
+				});
+				const ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+				resolve(imageData);
+			},
+		});
+	});
 
 export { ExtensionBlocks as default, ExtensionBlocks as blockClass };
