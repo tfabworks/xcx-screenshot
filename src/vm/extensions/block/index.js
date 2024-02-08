@@ -169,8 +169,12 @@ class ExtensionBlocks {
 
 	async saveScreenshot(args, util, util2) {
 		const spriteName = args.SPRITE_NAME || "";
+		const target = this.runtime.getSpriteTargetByName(spriteName)
+		if(!target) {
+			return
+		}
 		const costumeName = args.COSTUME_NAME || "";
-		if (!spriteName || !costumeName) {
+		if (!costumeName) {
 			return;
 		}
 		window.util = util;
@@ -193,9 +197,6 @@ class ExtensionBlocks {
 			assetId: asset.assetId,
 			md5: `${asset.assetId}.${asset.dataFormat}`,
 		};
-		// スプライト用ターゲットを取得or作成
-		const target = this._getSpriteTargetOrCreate(spriteName);
-
 		// 名前から既存のコスチュームを探す
 		const costume = target.getCostumes().find((c) => c.name === costumeName);
 		if (!costume) {
@@ -203,7 +204,7 @@ class ExtensionBlocks {
 			this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
 			target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
 		} else {
-			// 更新
+			// 上書き
 			// 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
 			// https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
 			Object.assign(costume, costumeUpdata);
@@ -224,24 +225,6 @@ class ExtensionBlocks {
 			);
 		}
 		this.runtime.vm.emitTargetsUpdate();
-	}
-
-	/**
-	 * スプライト用ターゲットを取得または作成する
-	 * @param {string} spriteName
-	 * @returns {RenderedTarget} target for the sprite
-	 */
-	_getSpriteTargetOrCreate(spriteName) {
-		const target0 = this.runtime.getSpriteTargetByName(spriteName);
-		if (target0) {
-			return target0;
-		}
-		const sprite = new Sprite(null, this.runtime);
-		sprite.name = spriteName;
-		const target = new RenderedTarget(sprite, this.runtime);
-		target.initDrawable(StageLayering.SPRITE_LAYER); // これをやっておかないとスプライトを切り替えた瞬間に「うわ！何か問題がはっせいしました。」というエラーが発生する
-		this.runtime.addTarget(target);
-		return target;
 	}
 
 	/**
