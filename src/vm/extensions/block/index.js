@@ -187,7 +187,7 @@ class ExtensionBlocks {
 			// レンダラーが持ってるBitmapも更新する必要があるっぽい
 			this.runtime.renderer.updateBitmapSkin(
 				costume.skinId,
-				dataUrlToImageData(imageDataUrl),
+				await dataUrlToImageData(imageDataUrl),
 				bitmapResolution,
 				[
 					rotationCenterX / bitmapResolution,
