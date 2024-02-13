@@ -4,20 +4,20 @@
     "screenshot.strftime": "Current Time [FORMAT]",
     "screenshot.saveScreenshot": "Save screenshot to [COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "Screenshot",
-    "screenshot.saveScreenshot_defaultCostumeName": "Screenshot1"
+    "screenshot.saveScreenshot_defaultCostumeName": "Screen1"
   },
   "ja": {
     "screenshot.name": "スクリーンショット",
     "screenshot.strftime": "現在日時[FORMAT]",
     "screenshot.saveScreenshot": "画面を保存[COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "スクリーン",
-    "screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
+    "screenshot.saveScreenshot_defaultCostumeName": "Screen1"
   },
   "ja-Hira": {
     "screenshot.name": "すくりーんしょっと",
     "screenshot.strftime": "げんざいにちじ[FORMAT]",
     "screenshot.saveScreenshot": "がめんをほぞん[COSTUME_NAME]",
     "screenshot.saveScreenshot_defaultSpriteName": "すくりーん",
-    "screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
+    "screenshot.saveScreenshot_defaultCostumeName": "Screen1"
   }
 }
