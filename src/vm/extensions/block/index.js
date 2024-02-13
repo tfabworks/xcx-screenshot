@@ -171,9 +171,10 @@ class ExtensionBlocks {
 		// 名前から既存のコスチュームを探す
 		const costume = target.getCostumes().find((c) => c.name === costumeName);
 		if (!costume) {
-			// 新規
-			this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
-			target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
+			// 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
+			const currentCostume = target.currentCostume
+			await this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
+			target.setCostume(currentCostume)
 		} else {
 			// 上書き
 			// 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
@@ -194,8 +195,8 @@ class ExtensionBlocks {
 					rotationCenterY / bitmapResolution,
 				],
 			);
+			this.runtime.vm.emitTargetsUpdate();
 		}
-		this.runtime.vm.emitTargetsUpdate();
 	}
 
 	/**
@@ -221,15 +222,11 @@ class ExtensionBlocks {
 		console.log(id2);
 		return formatMessage({ id: id2, default: translations.en[id2] });
 	}
-	get message_strftime() {
-		return this._message("strftime");
-	}
+	/** @private */
 	get message_saveScreenshot() {
 		return this._message("saveScreenshot");
 	}
-	get message_saveScreenshot_defaultSpriteName() {
-		return this._message("saveScreenshot_defaultSpriteName");
-	}
+	/** @private */
 	get message_saveScreenshot_defaultCostumeName() {
 		return this._message("saveScreenshot_defaultCostumeName");
 	}
