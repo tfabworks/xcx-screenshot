@@ -581,14 +581,14 @@ var en = {
 	"screenshot.strftime": "Current Time [FORMAT]",
 	"screenshot.saveScreenshot": "Save screenshot to [COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "Screenshot",
-	"screenshot.saveScreenshot_defaultCostumeName": "Screenshot1"
+	"screenshot.saveScreenshot_defaultCostumeName": "Screen1"
 };
 var ja = {
 	"screenshot.name": "スクリーンショット",
 	"screenshot.strftime": "現在日時[FORMAT]",
 	"screenshot.saveScreenshot": "画面を保存[COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "スクリーン",
-	"screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
+	"screenshot.saveScreenshot_defaultCostumeName": "Screen1"
 };
 var translations = {
 	en: en,
@@ -598,7 +598,7 @@ var translations = {
 	"screenshot.strftime": "げんざいにちじ[FORMAT]",
 	"screenshot.saveScreenshot": "がめんをほぞん[COSTUME_NAME]",
 	"screenshot.saveScreenshot_defaultSpriteName": "すくりーん",
-	"screenshot.saveScreenshot_defaultCostumeName": "スクリーン1"
+	"screenshot.saveScreenshot_defaultCostumeName": "Screen1"
 }
 };
 
@@ -709,7 +709,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "saveScreenshot",
     value: function () {
       var _saveScreenshot = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(args, util) {
-        var spriteName, myTarget, target, costumeName, _this$canvas, width, height, imageDataUrl, asset, costumeUpdata, costume, bitmapResolution, rotationCenterX, rotationCenterY;
+        var spriteName, myTarget, target, costumeName, _this$canvas, width, height, imageDataUrl, asset, costumeUpdata, costume, currentCostume, bitmapResolution, rotationCenterX, rotationCenterY;
         return regenerator.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -743,25 +743,40 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               costume = target.getCostumes().find(function (c) {
                 return c.name === costumeName;
               });
-              if (!costume) {
-                // 新規
-                this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
-                target.setVisible(false); // 作ったスプライトターゲットはデフォルトでは非表示にしておく
-              } else {
-                // 上書き
-                // 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
-                // https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
-                Object.assign(costume, costumeUpdata);
-                bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
-                rotationCenterX = width / 2;
-                rotationCenterY = height / 2;
-                costume.size = [width, height];
-                costume.bitmapResolution = bitmapResolution;
-                // レンダラーが持ってるBitmapも更新する必要があるっぽい
-                this.runtime.renderer.updateBitmapSkin(costume.skinId, dataUrlToImageData(imageDataUrl), bitmapResolution, [rotationCenterX / bitmapResolution, rotationCenterY / bitmapResolution]);
+              if (costume) {
+                _context.next = 20;
+                break;
               }
+              // 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
+              currentCostume = target.currentCostume;
+              _context.next = 17;
+              return this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
+            case 17:
+              target.setCostume(currentCostume);
+              _context.next = 35;
+              break;
+            case 20:
+              // 上書き
+              // 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
+              // https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
+              Object.assign(costume, costumeUpdata);
+              bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
+              rotationCenterX = width / 2;
+              rotationCenterY = height / 2;
+              costume.size = [width, height];
+              costume.bitmapResolution = bitmapResolution;
+              // レンダラーが持ってるBitmapも更新する必要があるっぽい
+              _context.t0 = this.runtime.renderer;
+              _context.t1 = costume.skinId;
+              _context.next = 30;
+              return dataUrlToImageData(imageDataUrl);
+            case 30:
+              _context.t2 = _context.sent;
+              _context.t3 = bitmapResolution;
+              _context.t4 = [rotationCenterX / bitmapResolution, rotationCenterY / bitmapResolution];
+              _context.t0.updateBitmapSkin.call(_context.t0, _context.t1, _context.t2, _context.t3, _context.t4);
               this.runtime.vm.emitTargetsUpdate();
-            case 15:
+            case 35:
             case "end":
               return _context.stop();
           }
@@ -802,21 +817,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         default: translations.en[id2]
       });
     }
-  }, {
-    key: "message_strftime",
-    get: function get() {
-      return this._message("strftime");
-    }
+    /** @private */
   }, {
     key: "message_saveScreenshot",
     get: function get() {
       return this._message("saveScreenshot");
     }
-  }, {
-    key: "message_saveScreenshot_defaultSpriteName",
-    get: function get() {
-      return this._message("saveScreenshot_defaultSpriteName");
-    }
+    /** @private */
   }, {
     key: "message_saveScreenshot_defaultCostumeName",
     get: function get() {
