@@ -90,12 +90,6 @@ class ExtensionBlocks {
 			formatMessage = runtime.formatMessage;
 		}
 
-		/**
-		 * ステージ用canvasの取得は this.canvas を使うこと。
-		 * @type {HTMLCanvasElement}
-		 */
-		this._canvas = null;
-
 		window.screenshot = this; // DEBUG
 	}
 
@@ -150,8 +144,11 @@ class ExtensionBlocks {
 		if (!costumeName) {
 			return;
 		}
-		const { width, height } = this.canvas;
-		const imageDataUrl = await canvasToDataURL(this.canvas);
+		const imageDataUrl = await new Promise(resolve => {
+            this.runtime.renderer.requestSnapshot(imageDataURL => {
+                resolve(imageDataURL);
+            });
+        });
 		// 画像バイナリを Asset に変換
 		const asset = this.runtime.storage.createAsset(
 			this.runtime.storage.AssetType.ImageBitmap,
@@ -199,23 +196,6 @@ class ExtensionBlocks {
 		}
 	}
 
-	/**
-	 * ステージの canvas エレメントを取得する。
-	 * 動的に querySelector("canvas") を取得するとプログラム実行中にコスチュームエディタ等の画面に移動した際に、
-	 * 目的とは別のcanvasが取得されてしまう事があるのでステージ用の canvas を一度取得したらそれを保持しておくようにする。
-	 * @returns {HTMLCanvasElement}
-	 */
-	get canvas() {
-		if (!this._canvas) {
-			const canvas = document.querySelector("canvas");
-			// ステージ用の canvas を見つけたらそれを保持する
-			if (canvas && canvas.closest("[class*=stage-wrapper]")) {
-				this._canvas = canvas;
-			}
-		}
-		return this._canvas;
-	}
-
 	/** @private @type {string} id @return {string} */
 	_message(id) {
 		const id2 = `${EXTENSION_ID}.${id}`;
@@ -232,37 +212,6 @@ class ExtensionBlocks {
 	}
 }
 
-/**
- *
- * @param {HTMLCanvasElement} canvas
- * @param {string} type
- */
-const canvasToDataURL = async (canvas, type = "image/png") => {
-	if (canvas.getContext("2d")) {
-		return Promise.resolve(canvas.toDataURL(type));
-	}
-	if (["webgl2", "webgl"].some((t) => !!canvas.getContext(t))) {
-		return new Promise((resolve) => {
-			const { width, height } = canvas;
-			const canvas2 = Object.assign(document.createElement("canvas"), {
-				width,
-				height,
-			});
-			const ctx = canvas2.getContext("2d");
-			// 出来立てのcanvasは真っ白
-			// const dataUrl0 = canvas2.toDataURL(type);
-			// ここで取得すると真っ黒になる
-			// ctx.drawImage(canvas, 0, 0);
-			// const dataUrl1 = canvas2.toDataURL(type);
-			requestAnimationFrame(() => {
-				// 一度描画させたタイミングならちゃんと見えてる画像が取れる
-				ctx.drawImage(canvas, 0, 0);
-				const dataUrl = canvas2.toDataURL(type);
-				resolve(dataUrl);
-			});
-		});
-	}
-};
 
 const dataUrlToUint8Array = (url) =>
 	base64ToUint8Array(url.substr(url.indexOf(";base64,") + 8) || "");
