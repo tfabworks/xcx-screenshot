@@ -651,12 +651,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // Replace 'formatMessage' to a formatter which is used in the runtime.
       formatMessage = runtime.formatMessage;
     }
-
-    /**
-     * ステージ用canvasの取得は this.canvas を使うこと。
-     * @type {HTMLCanvasElement}
-     */
-    this._canvas = null;
     window.screenshot = this; // DEBUG
   }
 
@@ -709,7 +703,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "saveScreenshot",
     value: function () {
       var _saveScreenshot = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(args, util) {
-        var spriteName, myTarget, target, costumeName, _this$canvas, width, height, imageDataUrl, asset, costumeUpdata, costume, currentCostume, bitmapResolution, rotationCenterX, rotationCenterY;
+        var _this = this;
+        var spriteName, myTarget, target, costumeName, imageDataUrl, asset, costumeUpdata, costume, currentCostume, bitmapResolution, rotationCenterX, rotationCenterY;
         return regenerator.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -723,10 +718,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               }
               return _context.abrupt("return");
             case 6:
-              _this$canvas = this.canvas, width = _this$canvas.width, height = _this$canvas.height;
-              _context.next = 9;
-              return canvasToDataURL(this.canvas);
-            case 9:
+              _context.next = 8;
+              return new Promise(function (resolve) {
+                _this.runtime.renderer.requestSnapshot(function (imageDataURL) {
+                  resolve(imageDataURL);
+                });
+              });
+            case 8:
               imageDataUrl = _context.sent;
               // 画像バイナリを Asset に変換
               asset = this.runtime.storage.createAsset(this.runtime.storage.AssetType.ImageBitmap, this.runtime.storage.DataFormat.PNG, dataUrlToUint8Array(imageDataUrl), null,
@@ -744,18 +742,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
                 return c.name === costumeName;
               });
               if (costume) {
-                _context.next = 20;
+                _context.next = 19;
                 break;
               }
               // 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
               currentCostume = target.currentCostume;
-              _context.next = 17;
+              _context.next = 16;
               return this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
-            case 17:
+            case 16:
               target.setCostume(currentCostume);
-              _context.next = 35;
+              _context.next = 34;
               break;
-            case 20:
+            case 19:
               // 上書き
               // 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
               // https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
@@ -768,15 +766,15 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               // レンダラーが持ってるBitmapも更新する必要があるっぽい
               _context.t0 = this.runtime.renderer;
               _context.t1 = costume.skinId;
-              _context.next = 30;
+              _context.next = 29;
               return dataUrlToImageData(imageDataUrl);
-            case 30:
+            case 29:
               _context.t2 = _context.sent;
               _context.t3 = bitmapResolution;
               _context.t4 = [rotationCenterX / bitmapResolution, rotationCenterY / bitmapResolution];
               _context.t0.updateBitmapSkin.call(_context.t0, _context.t1, _context.t2, _context.t3, _context.t4);
               this.runtime.vm.emitTargetsUpdate();
-            case 35:
+            case 34:
             case "end":
               return _context.stop();
           }
@@ -786,27 +784,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return _saveScreenshot.apply(this, arguments);
       }
       return saveScreenshot;
-    }()
-    /**
-     * ステージの canvas エレメントを取得する。
-     * 動的に querySelector("canvas") を取得するとプログラム実行中にコスチュームエディタ等の画面に移動した際に、
-     * 目的とは別のcanvasが取得されてしまう事があるのでステージ用の canvas を一度取得したらそれを保持しておくようにする。
-     * @returns {HTMLCanvasElement}
-     */
-  }, {
-    key: "canvas",
-    get: function get() {
-      if (!this._canvas) {
-        var canvas = document.querySelector("canvas");
-        // ステージ用の canvas を見つけたらそれを保持する
-        if (canvas && canvas.closest("[class*=stage-wrapper]")) {
-          this._canvas = canvas;
-        }
-      }
-      return this._canvas;
-    }
-
-    /** @private @type {string} id @return {string} */
+    }() /** @private @type {string} id @return {string} */
   }, {
     key: "_message",
     value: function _message(id) {
@@ -872,61 +850,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
   }]);
   return ExtensionBlocks;
-}();
-/**
- *
- * @param {HTMLCanvasElement} canvas
- * @param {string} type
- */
-var canvasToDataURL = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(canvas) {
-    var type,
-      _args2 = arguments;
-    return regenerator.wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          type = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : "image/png";
-          if (!canvas.getContext("2d")) {
-            _context2.next = 3;
-            break;
-          }
-          return _context2.abrupt("return", Promise.resolve(canvas.toDataURL(type)));
-        case 3:
-          if (!["webgl2", "webgl"].some(function (t) {
-            return !!canvas.getContext(t);
-          })) {
-            _context2.next = 5;
-            break;
-          }
-          return _context2.abrupt("return", new Promise(function (resolve) {
-            var width = canvas.width,
-              height = canvas.height;
-            var canvas2 = Object.assign(document.createElement("canvas"), {
-              width: width,
-              height: height
-            });
-            var ctx = canvas2.getContext("2d");
-            // 出来立てのcanvasは真っ白
-            // const dataUrl0 = canvas2.toDataURL(type);
-            // ここで取得すると真っ黒になる
-            // ctx.drawImage(canvas, 0, 0);
-            // const dataUrl1 = canvas2.toDataURL(type);
-            requestAnimationFrame(function () {
-              // 一度描画させたタイミングならちゃんと見えてる画像が取れる
-              ctx.drawImage(canvas, 0, 0);
-              var dataUrl = canvas2.toDataURL(type);
-              resolve(dataUrl);
-            });
-          }));
-        case 5:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2);
-  }));
-  return function canvasToDataURL(_x3) {
-    return _ref.apply(this, arguments);
-  };
 }();
 var dataUrlToUint8Array = function dataUrlToUint8Array(url) {
   return base64ToUint8Array(url.substr(url.indexOf(";base64,") + 8) || "");
