@@ -23,7 +23,7 @@ sed -e "s|class ExtensionManager {|builtinExtensions['${EXTENSION_ID}'] = () => 
 
 ### copy entry files
 mkdir -p src/lib/libraries/extensions/${EXTENSION_ID}
-cp ${EXTENSION_REP}/src/gui/lib/libraries/extensions/entry/index.jsx src/lib/libraries/extensions/${EXTENSION_ID}/index.jsx
+cp ${EXTENSION_REP}/src/gui/lib/libraries/extensions/entry/index-stretch.jsx src/lib/libraries/extensions/${EXTENSION_ID}/index.jsx
 cp ${EXTENSION_REP}/src/gui/lib/libraries/extensions/entry/entry-icon.png src/lib/libraries/extensions/${EXTENSION_ID}/
 cp ${EXTENSION_REP}/src/gui/lib/libraries/extensions/entry/inset-icon.png src/lib/libraries/extensions/${EXTENSION_ID}/
 
