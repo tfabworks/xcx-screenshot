@@ -1,6 +1,6 @@
 {
 	"name": "xcx-screenshot",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"scripts": {
 		"register": "npx -y xcratch-register --id=screenshot --gui=../scratch-gui --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry --core --link --use=extension-support util import sprites engine",
 		"build": "npx -y xcratch-build --module=screenshot --gui=../scratch-gui --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry",
