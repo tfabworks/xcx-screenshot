@@ -618,7 +618,7 @@ var formatMessage = function formatMessage(messageData) {
  * Setup format-message for this extension.
  */
 var setupTranslations = function setupTranslations() {
-  var localeSetup = formatMessage.setup();
+  var localeSetup = formatMessage.setup ? formatMessage.setup() : null;
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
