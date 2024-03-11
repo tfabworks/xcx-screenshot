@@ -808,12 +808,23 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       return this._message("saveScreenshot_defaultCostumeName");
     }
   }], [{
-    key: "EXTENSION_NAME",
-    get:
+    key: "formatMessage",
+    set:
+    /**
+        * A translation object which is used in this class.
+        * @param {FormatObject} formatter - translation object
+        */
+    function set(formatter) {
+      formatMessage = formatter;
+      if (formatMessage) setupTranslations();
+    }
+
     /**
      * @return {string} - the name of this extension.
      */
-    function get() {
+  }, {
+    key: "EXTENSION_NAME",
+    get: function get() {
       return formatMessage({
         id: "screenshot.name",
         default: translations.en["screenshot.name"],
