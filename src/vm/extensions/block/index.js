@@ -39,6 +39,16 @@ let extensionURL =
  * Scratch 3.0 blocks for example of Xcratch.
  */
 class ExtensionBlocks {
+
+	/**
+     * A translation object which is used in this class.
+     * @param {FormatObject} formatter - translation object
+     */
+	static set formatMessage (formatter) {
+		formatMessage = formatter;
+		if (formatMessage) setupTranslations();
+	}
+
 	/**
 	 * @return {string} - the name of this extension.
 	 */
