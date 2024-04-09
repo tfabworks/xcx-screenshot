@@ -746,7 +746,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
                 break;
               }
               // 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
-              currentCostume = target.currentCostume;
+              currentCostume = target.currentCostume; // TODO: streach3だとruntime.vmにアクセスできないので別の口を使う必要がある（但し現在のxcx-screenshotのバージョンではコスチューム名指定のブロックを隠しているので、対応を急ぐ必要はない）
               _context.next = 16;
               return this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
             case 16:
@@ -773,7 +773,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               _context.t3 = bitmapResolution;
               _context.t4 = [rotationCenterX / bitmapResolution, rotationCenterY / bitmapResolution];
               _context.t0.updateBitmapSkin.call(_context.t0, _context.t1, _context.t2, _context.t3, _context.t4);
-              this.runtime.vm.emitTargetsUpdate();
+              this.runtime.requestTargetsUpdate(costume);
             case 34:
             case "end":
               return _context.stop();
