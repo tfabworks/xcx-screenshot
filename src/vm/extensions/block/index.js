@@ -180,8 +180,7 @@ class ExtensionBlocks {
 		if (!costume) {
 			// 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
 			const currentCostume = target.currentCostume
-			// TODO: streach3だとruntime.vmにアクセスできないので別の口を使う必要がある（但し現在のxcx-screenshotのバージョンではコスチューム名指定のブロックを隠しているので、対応を急ぐ必要はない）
-			await this.runtime.vm.addCostume(costumeUpdata.md5, costumeUpdata, target.id);
+			await target.addCostume(costumeUpdata);
 			target.setCostume(currentCostume)
 		} else {
 			// 上書き
