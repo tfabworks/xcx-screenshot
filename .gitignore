@@ -1,4 +1,8 @@
 node_modules/
 
-src/vm/*
-!src/vm/extensions/
+/src/vm/*
+!/src/vm/extensions/
+
+/scratch-gui*
+/scratch-vm*
+.envrc
