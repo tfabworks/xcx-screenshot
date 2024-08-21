@@ -16,8 +16,8 @@ This is an extension to save screenshots as images in costumes.
 
 ## ✨ What You Can Do With This Extension
 
-Play [Example Project](https://xcratch.github.io/editor/#https://tfabworks.github.io/xcx-screenshot/projects/example.sb3) to look at what you can do with "Screenshot" extension.
-<iframe src="https://xcratch.github.io/editor/player#https://tfabworks.github.io/xcx-screenshot/projects/example.sb3" width="540px" height="460px" allow="camera"></iframe>
+Play [Example Project](https://xcratch.github.io/editor/#https://tfabworks.github.io/xcx-screenshot/projects/example2.sb3) to look at what you can do with "Screenshot" extension.
+<iframe src="https://xcratch.github.io/editor/player#https://tfabworks.github.io/xcx-screenshot/projects/example2.sb3" width="540px" height="460px" allow="camera"></iframe>
 
 
 ## How to Use in Xcratch

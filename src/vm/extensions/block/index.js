@@ -100,7 +100,7 @@ class ExtensionBlocks {
 			formatMessage = runtime.formatMessage;
 		}
 
-		window.screenshot = this; // DEBUG
+		window.xcx_screenshot = this; // DEBUG
 	}
 
 	/**
@@ -154,15 +154,20 @@ class ExtensionBlocks {
 		if (!costumeName) {
 			return;
 		}
+		window.target = target
 		const imageDataUrl = await new Promise(resolve => {
-            this.runtime.renderer.requestSnapshot(imageDataURL => {
+            target.runtime.renderer.requestSnapshot(imageDataURL => {
                 resolve(imageDataURL);
             });
         });
+		const imageData = await dataUrlToImageData(imageDataUrl)
+		const {width, height} = imageData
+		const center = [width / 2, height / 2]
+		const bitmapResolution = 2 // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
 		// 画像バイナリを Asset に変換
-		const asset = this.runtime.storage.createAsset(
-			this.runtime.storage.AssetType.ImageBitmap,
-			this.runtime.storage.DataFormat.PNG,
+		const asset = target.runtime.storage.createAsset(
+			target.runtime.storage.AssetType.ImageBitmap,
+			target.runtime.storage.DataFormat.PNG,
 			dataUrlToUint8Array(imageDataUrl),
 			null, // null: auto genenrate id
 			true, // true: auto generate md5
@@ -174,42 +179,47 @@ class ExtensionBlocks {
 			dataFormat: asset.dataFormat,
 			assetId: asset.assetId,
 			md5: `${asset.assetId}.${asset.dataFormat}`,
+			size: [width, height],
+			rotationCenterX: center[0],
+			rotationCenterY: center[1],
+			bitmapResolution,
 		};
 		// 名前から既存のコスチュームを探す
 		const costume = target.getCostumes().find((c) => c.name === costumeName);
 		if (!costume) {
-			// 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
+			// 新規作成
+			// 現在選択中のコスチュームを保存
 			const currentCostume = target.currentCostume
+			// 新しい skinId を取得（スキンIDは全コスチューム）
+			const skinId = target.renderer.createBitmapSkin(imageData, bitmapResolution, center)
+			costumeUpdata.skinId = skinId
 			await target.addCostume(costumeUpdata);
+			target.setCostume(target.getCostumes().length - 1)
+			// 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
 			target.setCostume(currentCostume)
 		} else {
 			// 上書き
 			// 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
 			// https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
 			Object.assign(costume, costumeUpdata);
-			const bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
-			const rotationCenterX = width / 2;
-			const rotationCenterY = height / 2;
-			costume.size = [width, height];
-			costume.bitmapResolution = bitmapResolution;
-			// レンダラーが持ってるBitmapも更新する必要があるっぽい
-			this.runtime.renderer.updateBitmapSkin(
+			// renderer.updateBitmapSkin に渡すために canvas に変換
+			const canvas = Object.assign(document.createElement('canvas'), {width, height})
+			const context = canvas.getContext('2d');
+			context.putImageData(imageData, 0, 0);
+			// レンダラーが持ってるBitmapSkinも更新する必要がある
+			target.renderer.updateBitmapSkin(
 				costume.skinId,
-				await dataUrlToImageData(imageDataUrl),
-				bitmapResolution,
-				[
-					rotationCenterX / bitmapResolution,
-					rotationCenterY / bitmapResolution,
-				],
+				canvas,
+				costume.bitmapResolution,
+				center
 			);
-			this.runtime.requestTargetsUpdate(costume)
+			target.runtime.requestTargetsUpdate(costume)
 		}
 	}
 
 	/** @private @type {string} id @return {string} */
 	_message(id) {
 		const id2 = `${EXTENSION_ID}.${id}`;
-		console.log(id2);
 		return formatMessage({ id: id2, default: translations.en[id2] });
 	}
 	/** @private */
