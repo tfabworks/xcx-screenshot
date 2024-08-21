@@ -8,14 +8,14 @@ var en$1 = {
 };
 var ja$1 = {
 	"screenshot.entry.name": "スクリーンショット",
-	"screenshot.entry.description": "スクリーンショットをコスチュームに画像として保存する拡張です。"
+	"screenshot.entry.description": "画面をコスチュームに保存する"
 };
 var translations$1 = {
 	en: en$1,
 	ja: ja$1,
 	"ja-Hira": {
 	"screenshot.entry.name": "スクリーンショット",
-	"screenshot.entry.description": "すくりーんしょっとをこすちゅーむにがぞうとしてほぞんするかくちょうです。"
+	"screenshot.entry.description": "がめんをこすちゅーむにほぞんする"
 },
 	"zh-cn": {
 	"screenshot.entry.name": "屏幕截图",
