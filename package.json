@@ -2,13 +2,14 @@
 	"name": "xcx-screenshot",
 	"version": "1.0.0",
 	"scripts": {
-		"register": "npx -y xcratch-register --id=screenshot --gui=${SCRATCH_GUI:-../scratch-gui} --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry --core --link --use=extension-support util import sprites engine",
-		"build": "NODE_NO_WARNINGS=1 npx -y xcratch-build --module=screenshot --gui=${SCRATCH_GUI:-../scratch-gui} --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry",
-		"start": "cd ${SCRATCH_GUI:-../scratch-gui} && npm run start",
-		"preregister": "npm run setup-prerequisites",
+		"build": "NODE_NO_WARNINGS=1 npx -y xcratch-build --module=screenshot --gui=${XCRATCH_PATH:-../scratch-gui.xcratch} --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry",
+		"start": "cd ${XCRATCH_PATH:-../scratch-gui.xcratch} && npm run start",
+		"start-stretch3": "bash ./scripts/stretch3-start.sh",
 		"prebuild": "npm run register",
 		"prestart": "npm run register",
-		"setup-prerequisites": "test -d ${SCRATCH_GUI:-../scratch-gui} || (git clone --depth 1 https://github.com/xcratch/scratch-gui.git ${SCRATCH_GUI:-../scratch-gui}; cd ${SCRATCH_GUI:-../scratch-gui} && npm install); test -d ${SCRATCH_GUI:-../scratch-gui}/node_modules/scratch-vm || (cd ${SCRATCH_GUI:-../scratch-gui} && npm install scratch-vm)"
+		"register": "find src/vm -maxdepth 1 -type l -delete; npx -y xcratch-register --id=screenshot --gui=${XCRATCH_PATH:-../scratch-gui.xcratch} --block=./src/vm/extensions/block --entry=./src/gui/lib/libraries/extensions/entry --core --link --use=extension-support util import sprites engine",
+		"preregister": "npm run setup-prerequisites",
+		"setup-prerequisites": "set -x; test -d ${XCRATCH_PATH:-../scratch-gui.xcratch} || (git clone --depth 1 https://github.com/xcratch/scratch-gui.git ${XCRATCH_PATH:-../scratch-gui.xcratch}; cd ${XCRATCH_PATH:-../scratch-gui.xcratch} && npm install); test -d ${XCRATCH_PATH:-../scratch-gui.xcratch}/node_modules/scratch-vm || (cd ${XCRATCH_PATH:-../scratch-gui.xcratch} && npm install scratch-vm)"
 	},
 	"devDependencies": {
 		"xcratch-build": "^0.4.0",

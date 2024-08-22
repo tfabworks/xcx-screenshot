@@ -3,14 +3,11 @@ import insetIconURL from './inset-icon.png';
 import translations from './translations.json';
 
 let formatMessage = messageData => messageData.defaultMessage;
-
-const setFormatter = formatter => {
-    formatMessage = formatter;
-};
+const setFormatter = formatter => formatMessage = formatter;
 
 const message = (key) => {
     const id = `${entry.extensionId}.entry.${key}`
-    const defaultMessage = translations[id] || translations.en[id]
+    const defaultMessage = translations[id] || translations.ja[id]
     const description = `${key} of the extension`
     return formatMessage({id, defaultMessage, description})
 };
@@ -28,7 +25,7 @@ const entry = {
     bluetoothRequired: false,
     internetConnectionRequired: false,
     helpLink: 'https://tfabworks.github.io/xcx-screenshot/',
-    translationMap: translations
+    translationMap: translations,
 };
 
 export {entry, setFormatter};
