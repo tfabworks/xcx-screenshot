@@ -8,14 +8,14 @@ var en$1 = {
 };
 var ja$1 = {
 	"screenshot.entry.name": "スクリーンショット",
-	"screenshot.entry.description": "画面をコスチュームに保存する"
+	"screenshot.entry.description": "画面をコスチュームに保存する。"
 };
 var translations$1 = {
 	en: en$1,
 	ja: ja$1,
 	"ja-Hira": {
 	"screenshot.entry.name": "スクリーンショット",
-	"screenshot.entry.description": "がめんをこすちゅーむにほぞんする"
+	"screenshot.entry.description": "がめんをこすちゅーむにほぞんする。"
 },
 	"zh-cn": {
 	"screenshot.entry.name": "屏幕截图",
@@ -31,11 +31,11 @@ var formatMessage$1 = function formatMessage(messageData) {
   return messageData.defaultMessage;
 };
 var setFormatter = function setFormatter(formatter) {
-  formatMessage$1 = formatter;
+  return formatMessage$1 = formatter;
 };
 var message = function message(key) {
   var id = "".concat(entry.extensionId, ".entry.").concat(key);
-  var defaultMessage = translations$1[id] || translations$1.en[id];
+  var defaultMessage = translations$1[id] || translations$1.ja[id];
   var description = "".concat(key, " of the extension");
   return formatMessage$1({
     id: id,
