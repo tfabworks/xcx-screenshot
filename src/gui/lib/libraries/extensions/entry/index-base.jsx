@@ -3,6 +3,7 @@ import insetIconURL from './inset-icon.png';
 import translations from './translations.json';
 
 let formatMessage = messageData => messageData.defaultMessage;
+
 const setFormatter = formatter => formatMessage = formatter;
 
 const message = (key) => {
