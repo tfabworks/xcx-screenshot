@@ -704,7 +704,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "saveScreenshot",
     value: function () {
       var _saveScreenshot = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(args, util) {
-        var spriteName, myTarget, target, costumeName, imageDataUrl, imageData, width, height, center, bitmapResolution, asset, costumeUpdata, costume, currentCostume, skinId, canvas, context;
+        var spriteName, myTarget, target, costumeName, imageDataUrlOriginal, bitmapResolution, imageDataUrl, imageData, width, height, center, asset, costumeUpdata, costume, currentCostume, skinId, canvas, context;
         return regenerator.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -726,15 +726,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
                 });
               });
             case 9:
+              imageDataUrlOriginal = _context.sent;
+              bitmapResolution = 2; // ビットマップの場合は２が無難、試しに1にすると結構ガビガビになる。 内部でもPNGでは2が使われている https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
+              _context.next = 13;
+              return resizePngDataUrl(imageDataUrlOriginal, 640 * bitmapResolution);
+            case 13:
               imageDataUrl = _context.sent;
-              _context.next = 12;
+              _context.next = 16;
               return dataUrlToImageData(imageDataUrl);
-            case 12:
+            case 16:
               imageData = _context.sent;
               width = imageData.width, height = imageData.height;
-              center = [width / 2, height / 2];
-              bitmapResolution = 2; // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
-              // 画像バイナリを Asset に変換
+              center = [width / 2, height / 2]; // 画像バイナリを Asset に変換
               asset = target.runtime.storage.createAsset(target.runtime.storage.AssetType.ImageBitmap, target.runtime.storage.DataFormat.PNG, dataUrlToUint8Array(imageDataUrl), null,
               // null: auto genenrate id
               true // true: auto generate md5
@@ -754,7 +757,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
                 return c.name === costumeName;
               });
               if (costume) {
-                _context.next = 29;
+                _context.next = 32;
                 break;
               }
               // 新規作成
@@ -762,15 +765,15 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               currentCostume = target.currentCostume; // 新しい skinId を取得（スキンIDは全コスチューム）
               skinId = target.renderer.createBitmapSkin(imageData, bitmapResolution, center);
               costumeUpdata.skinId = skinId;
-              _context.next = 25;
+              _context.next = 28;
               return target.addCostume(costumeUpdata);
-            case 25:
+            case 28:
               target.setCostume(target.getCostumes().length - 1);
               // 新規（addCostumeすると最新のコスチュームが選択されてしまうが、コスチュームの選択は元のままにする）
               target.setCostume(currentCostume);
-              _context.next = 35;
+              _context.next = 38;
               break;
-            case 29:
+            case 32:
               // 上書き
               // 本当は runtime.vm.updateBitmap() を使えば楽ぽいけど、ターゲットが editingTarget 固定なので使えないので、必要な処理を参考にしつつ自分で書いた
               // https://github.com/xcratch/scratch-vm/blob/05a1dcd2bd9037741de8cbb7620edbbb5eb1284d/src/virtual-machine.js#L888-L939
@@ -785,7 +788,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               // レンダラーが持ってるBitmapSkinも更新する必要がある
               target.renderer.updateBitmapSkin(costume.skinId, canvas, costume.bitmapResolution, center);
               target.runtime.requestTargetsUpdate(costume);
-            case 35:
+            case 38:
             case "end":
               return _context.stop();
           }
@@ -899,6 +902,29 @@ var dataUrlToImageData = function dataUrlToImageData(url) {
         resolve(imageData);
       }
     });
+  });
+};
+var resizePngDataUrl = function resizePngDataUrl(dataUrl, targetWidth) {
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = function () {
+      if (img.width === targetWidth) {
+        resolve(dataUrl);
+      }
+      var aspectRatio = img.height / img.width;
+      var targetHeight = Math.round(targetWidth * aspectRatio);
+      var canvas = document.createElement("canvas");
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+      var resizedDataUrl = canvas.toDataURL("image/png");
+      resolve(resizedDataUrl);
+    };
+    img.onerror = function () {
+      reject(new Error("Failed to load image"));
+    };
+    img.src = dataUrl;
   });
 };
 

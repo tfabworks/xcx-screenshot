@@ -155,15 +155,16 @@ class ExtensionBlocks {
 			return;
 		}
 		window.target = target
-		const imageDataUrl = await new Promise(resolve => {
+		const imageDataUrlOriginal = await new Promise(resolve => {
             target.runtime.renderer.requestSnapshot(imageDataURL => {
                 resolve(imageDataURL);
             });
         });
+		const bitmapResolution = 2 // ビットマップの場合は２が無難、試しに1にすると結構ガビガビになる。 内部でもPNGでは2が使われている https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
+		const imageDataUrl = await resizePngDataUrl(imageDataUrlOriginal, 640 * bitmapResolution)
 		const imageData = await dataUrlToImageData(imageDataUrl)
 		const {width, height} = imageData
 		const center = [width / 2, height / 2]
-		const bitmapResolution = 2 // ビットマップの場合は２固定ポイ? https://github.com/xcratch/scratch-gui/blob/a255b910d31098fd728221fc6c27a329d79f184f/src/containers/paint-editor-wrapper.jsx#L34-L39
 		// 画像バイナリを Asset に変換
 		const asset = target.runtime.storage.createAsset(
 			target.runtime.storage.AssetType.ImageBitmap,
@@ -260,4 +261,27 @@ const dataUrlToImageData = (url) =>
 		});
 	});
 
+const resizePngDataUrl = (dataUrl, targetWidth) => {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.onload = () => {
+			if(img.width === targetWidth) {
+				resolve(dataUrl)
+			}
+			const aspectRatio = img.height / img.width;
+			const targetHeight = Math.round(targetWidth * aspectRatio);
+			const canvas = document.createElement("canvas");
+			canvas.width = targetWidth;
+			canvas.height = targetHeight;
+			const ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+			const resizedDataUrl = canvas.toDataURL("image/png");
+			resolve(resizedDataUrl);
+		};
+		img.onerror = () => {
+			reject(new Error("Failed to load image"));
+		};
+		img.src = dataUrl;
+	});
+}
 export { ExtensionBlocks as default, ExtensionBlocks as blockClass };
