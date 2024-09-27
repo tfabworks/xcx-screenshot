@@ -32,15 +32,10 @@ for repo in "${repos[@]}"; do
   sh "./${repo}/scripts/stretch3-install.sh"
 done
 
-# ビルド
-npm run build
-npm run start
-exit
-
-# stretch3のセットアップ
-if [[ ! -d stretch3 ]]; then
-  git clone --depth 1 https://github.com/stretch3/stretch3.github.io.git stretch3
-  sh ./stretch3/modify_index_html.sh
+# https://foo.tailxxxxx.ts.net のようなドメインでも devServer へのアクセスを許可するための設定
+if ! grep -q disableHostCheck: webpack.config.js; then
+  perl -i -pe's/\bdevServer:\s*\{/$& disableHostCheck:true,/' webpack.config.js
 fi
 
+npm run build
 npm run start
